@@ -1,0 +1,5 @@
+numpy>=1.18.4
+pandas>=1.0.3
+check50>=3.0.10
+Shapely>=1.7.0
+networkx>=2.4
