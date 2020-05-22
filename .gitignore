@@ -106,10 +106,6 @@ celerybeat.pid
 .venv
 env/
 venv/
-<<<<<<< HEAD
-=======
-tmp_venv/
->>>>>>> 4a652f49dd095aee8fe3eca69edcddfd2c7f37ab
 ENV/
 env.bak/
 venv.bak/
@@ -118,12 +114,9 @@ venv.bak/
 .spyderproject
 .spyproject
 
-<<<<<<< HEAD
-=======
 # Pycharm
 .idea/
 
->>>>>>> 4a652f49dd095aee8fe3eca69edcddfd2c7f37ab
 # Rope project settings
 .ropeproject
 
@@ -137,9 +130,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-<<<<<<< HEAD
-=======
 
 # Ignore all temp test python files.
 */test.py
->>>>>>> 4a652f49dd095aee8fe3eca69edcddfd2c7f37ab
