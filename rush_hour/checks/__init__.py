@@ -30,14 +30,14 @@ BOARD_FILE = "board.csv"
 
 @check50.check()
 def exists():
-    """Check if output.csv exists."""
+    """output.csv exists."""
     check50.exists("output.csv")
     check50.include(BOARD_FILE)
 
 
 @check50.check(exists)
 def check_file():
-    """Check if the structure and values of output.csv are correct."""
+    """The structure and values of output.csv are correct."""
     # Check if output.csv has content.
     if os.stat("output.csv").st_size == 0:
         raise check50.Failure("Output.csv may not be empty. Provide at least a header row.")
@@ -103,7 +103,7 @@ def check_file():
 
 @check50.check(check_file)
 def check_moves():
-    """Check if the moves are valid and the red car exits."""
+    """The moves are valid and the red car exits."""
     
     # Load the current board
     with open(BOARD_FILE) as board_file:
@@ -199,6 +199,7 @@ class Board:
             
             # Place all other vehicles than the one to be moved on the board
             other_vehicles = [v for v in self.vehicles if v != vehicle]
+
             for other_vehicle in other_vehicles:
                 new_board.place(other_vehicle, *cursor_board.location_of(other_vehicle))
 
@@ -231,10 +232,12 @@ class Board:
 
 
     def pretty_print(self):
+        max_name_length = max(len(vehicle.name) for vehicle in self.vehicles)
+
         fmt = ""
         for row in range(self.size):
             for col in range(self.size):
-                fmt += str(self._board[col][row]) + " "
+                fmt += str(self._board[col][row]).rjust(max_name_length) + " "
             fmt += "\n"
         return fmt
 
