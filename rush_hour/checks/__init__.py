@@ -113,6 +113,7 @@ def check_moves():
     # Perform each move in output.csv
     with open("output.csv") as output_file:
         for entry in csv.DictReader(output_file):
+            
             # Find which vehicle needs to be moved
             vehicle = [vehicle for vehicle in vehicles if vehicle.name == entry["car"]][0]
 
