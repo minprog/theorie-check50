@@ -9,17 +9,17 @@ does so by doing the following tests in this order:
     - Check if the wires do not overlap
     - Check if the wires actually connect the designated nets
     - Check if the length in output.csv is equal to the computed wire length
-
-@author: Okke van Eck
-@contact: okke.van.eck@gmail.com
 """
 
 import check50
 import pandas as pd
 import numpy as np
+
+import collections
+import csv
+import logging
 import os
 import re
-import networkx as nx
 
 
 @check50.check()
@@ -31,7 +31,7 @@ def exists():
 
 @check50.check(exists)
 def check_file():
-    """Check if the structure and values of output.json are correct."""
+    """The structure and values of output.json are correct."""
     # Check if output.csv has content.
     if os.stat("output.csv").st_size == 0:
         raise check50.Failure("Output.csv may not be empty. Provide at least "
@@ -114,232 +114,281 @@ def check_file():
 
 
 @check50.check(check_file)
-def check_structure():
-    """Check if the structured solution of output.csv is correct."""
-    with open("output.csv") as csvfile:
-        df = pd.read_csv(csvfile)
-        chip_id = int(df["net"].iloc[-1][5:6])
-        net_id = int(df["net"].iloc[-1][11:])
+def is_solution():
+    """output.csv is a solution for the netlist + print"""
+    with open("output.csv") as f:
+        data = list(csv.DictReader(f))
 
-        # Create dict with coordinates of the print nets.
-        print_pos_3d = {}
+    # Parse the last line containing
+    config = data[-1]["net"]
+    cost = data[-1]["wires"]    
+    chip_id = config[len("chip_")]
+    net_id = config[-1]
 
-        with open(f"data/chip_{chip_id}/print_{chip_id}.csv") as printfile:
-            print_df = pd.read_csv(printfile)
+    # Remove the last line
+    data = data[:-1]
 
-            for id, x, y in print_df.values:
-                print_pos_3d[id] = (x, y, 0)
+    # Check whether the netlist in output.csv contains all and only nets from the specified netlist
+    check_netlist_complete(chip_id, net_id, data)
 
-        # Check if all connections from netlist are specified.
-        with open(f"data/chip_{chip_id}/netlist_{net_id}.csv") as netlistfile:
-            netlist_df = pd.read_csv(netlistfile)
-            netlist_list = [tuple(n) for n in netlist_df.values.tolist()]
-            nets = [tuple(map(int, p[1:-1].split(",")))
-                    for p in df["net"][:-1].values.tolist()]
+    # Check whether the grid is valid
+    grid = check_grid(chip_id, data)
 
-            # Add flipped values as well.
-            for p in df["net"][:-1].values.tolist():
-                nets.append(tuple(map(int, p[1:-1].split(",")[::-1])))
+    # For debugging purposes, log the grid to debug. Set this with "--log-level debug" when running check50
+    logging.getLogger("check50").debug(grid.pretty_print())
 
-            net_errors = []
-
-            # Check if all required connections are made.
-            for nl in netlist_list:
-                if nl not in nets:
-                    net_errors.append(nl)
-
-            if net_errors:
-                error = "Expected all connections from the netlist to be in " \
-                        "the output, but did not find:\n"
-
-                for nl in net_errors:
-                    error = "".join([error, f"\t'({nl[0]},{nl[1]})' or "
-                                            f"'({nl[1]},{nl[0]})'\n"])
-
-                raise check50.Failure(error)
-
-        # Create lists with all coordinates in 3D.
-        wire_coords = [x[2:-2].split("),(") for x in df["wires"][:-1]]
-        wire_coords = [[tuple(int(c) for c in coord.split(","))
-                        for coord in coords] for coords in wire_coords]
-        wire_coords_3d = [[c if len(c) == 3 else (c[0], c[1], 0)
-                           for c in coords] for coords in wire_coords]
-
-        # Check if the coordinates of the nets in the print are also in the list
-        # with wires.
-        net_errors = []
-
-        for i, wires in enumerate(wire_coords_3d):
-            net_1, net_2 = df["net"].iloc[i][1:-1].split(",")
-
-            if print_pos_3d[int(net_1)] not in wires:
-                net_errors.append([i, net_1, print_pos_3d[int(net_1)]])
-
-            if print_pos_3d[int(net_2)] not in wires:
-                net_errors.append([i, net_2, print_pos_3d[int(net_2)]])
-
-        if net_errors:
-            error = "Expected to find all coordinates of nets in the wire " \
-                    "lists, but did not find:\n"
-
-            for idx, net, coord_3d in net_errors:
-                error = "".join([error, f"\t'({coord_3d[0]},{coord_3d[1]},"
-                                        f"{coord_3d[2]})' \tor '({coord_3d[0]},"
-                                        f"{coord_3d[1]})' \tfor net {net} \ton "
-                                        f"row {idx + 2}\n"])
-
-            raise check50.Failure(error)
-
-        # Check if the wire lists do connect their designated nets.
-        connect_errors = []
-
-        for i, wires in enumerate(wire_coords_3d):
-            net_1, net_2 = df["net"].iloc[i][1:-1].split(",")
-            net_1_coord = print_pos_3d[int(net_1)]
-            net_2_coord = print_pos_3d[int(net_2)]
-
-            # Create a new graph and add nodes for origin and destination.
-            graph = nx.Graph()
-            graph.add_nodes_from([0, 1])
-            nodes = {net_1_coord: 0, net_2_coord: 1}
-
-            # Add nodes for all the wires.
-            for j, coord in enumerate(wires):
-                if coord != net_1_coord and coord != net_2_coord:
-                    graph.add_node(j + 2)
-                    nodes[coord] = j + 2
-
-            # Create edges between neighbouring nodes.
-            for coord, id in nodes.items():
-                cur_pos = list(coord)
-
-                # Check neighbours by changing a specific axis.
-                for move in [-3, -2, -1, 1, 2, 3]:
-                    cur_pos[abs(move) - 1] += move // abs(move)
-
-                    if tuple(cur_pos) in nodes:
-                        graph.add_edge(id, nodes[tuple(cur_pos)])
-
-                    cur_pos[abs(move) - 1] -= move // abs(move)
-
-            # Check if a path has been created between origin and destination.
-            if not nx.has_path(graph, 0, 1):
-                connect_errors.append([i, net_1, net_2])
-
-        if connect_errors:
-            error = "Expected wires to connect designated nets, but found " \
-                    "that:\n"
-
-            for row, net_1, net_2 in connect_errors:
-                error = "".join([error, f"\tNet {net_1} \tand net {net_2} \t"
-                                        f"were not connected with wires from "
-                                        f"row {row + 2}\n"])
-
-            raise check50.Failure(error)
-
-        # Check if there are wires which surpass the maximum height of 7.
-        invalid_height = [[(w, i + 1) for w in wires if w[2] > 7]
-                          for i, wires in enumerate(wire_coords_3d)]
-
-        error = "Wires cannot go higher than the 7th layer, but found:\n"
-        error_found = False
-
-        for height in invalid_height:
-            if height:
-                error_found = True
-                for wire, row in height:
-                    error = "".join([error, f"\tWire {wire} \ton row {row}\n"])
-
-        if error_found:
-            raise check50.Failure(error)
-
-        # Check if all coordinates fall within the dimensions of the base layer.
-        with open(f"data/chip_{chip_id}/print_{chip_id}.csv") as printfile:
-            print_df = pd.read_csv(printfile)
-            x_min = print_df["x"].min()
-            x_max = print_df["x"].max()
-            y_min = print_df["y"].min()
-            y_max = print_df["y"].max()
-
-        error = "All wires have to be placed within the dimensions of the " \
-                "base layer, but found:\n"
-        error_found = False
-
-        for i, wires in enumerate(wire_coords):
-            for wire in wires:
-                if wire[0] > x_max + 1 or wire[0] < x_min - 1 or \
-                        wire[1] > y_max + 1 or wire[1] < y_min - 1:
-                    error_found = True
-                    error = "".join([error, f"\tWire {wire} \ton row {i}\n"])
-
-        if error_found:
-            raise check50.Failure(error)
+    # Pass the score of the grid to following checks
+    return grid.score()
 
 
-@check50.check(check_structure)
-def check_cost():
-    """Check if solution costs as much as specified in output.csv."""
-    with open("output.csv") as csvfile:
-        df = pd.read_csv(csvfile)
-        chip_id = int(df["net"].iloc[-1][5:6])
+def check_netlist_complete(chip_id, net_id, output_data):
+    netlist_gates = set()
+    with open(f"data/chip_{chip_id}/netlist_{net_id}.csv") as f:
+        for line in csv.DictReader(f):
+            gate_a_id = int(line["chip_a"])
+            gate_b_id = int(line["chip_b"])
+            netlist_gates.add((gate_a_id, gate_b_id))
 
-        # Create dict with coordinates of the print nets.
-        print_pos_3d = {}
+    output_gates = []
+    for line in output_data:
+        gate_a_id, gate_b_id = line["net"].strip("()").split(",")
+        gate_a_id = int(gate_a_id)
+        gate_b_id = int(gate_b_id)
+        output_gates.append((gate_a_id, gate_b_id))
 
-        with open(f"data/chip_{chip_id}/print_{chip_id}.csv") as printfile:
-            print_df = pd.read_csv(printfile)
+    # output.csv dictates the order of nets
+    for a, b in output_gates:
+        if (a, b) not in netlist_gates and (b, a) in netlist_gates:
+            netlist_gates.remove((b,a))
+            netlist_gates.add((a,b))
 
-            for id, x, y in print_df.values:
-                print_pos_3d[id] = (x, y, 0)
+    # Ensure there are no duplicate gates in output.csv
+    if len(set(output_gates)) != len(output_gates):
+        seen = set()
+        duplicates = []
+        for gate in output_gates:
+            if gate not in seen:
+                seen.add(gate)
+            else:
+                duplicates.append(gate)
+        raise check50.Failure(f"Duplicate gates in output.csv, namely: {duplicates}")
 
-        # Create lists with all coordinates in 3D.
-        wire_coords = [x[2:-2].split("),(") for x in df["wires"][:-1]]
-        wire_coords = [[tuple(int(c) for c in coord.split(","))
-                        for coord in coords] for coords in wire_coords]
-        wire_coords_3d = [[c if len(c) == 3 else (c[0], c[1], 0)
-                           for c in coords] for coords in wire_coords]
+    output_gates = set(output_gates)
 
-        # Check if any of the intermediate wires overlap. Only begin and end may
-        # overlap since this is the net itself.
-        wire_coords_3d_flatten = {}
-        wire_errors = []
+    # Ensure all gates in output are also in the netlist and vice versa
+    if netlist_gates != output_gates:
+        missing_gates = netlist_gates - output_gates
+        if missing_gates:
+            raise check50.Failure(f"Missing the following net in output.csv: {missing_gates}")
+        
+        extra_gates = output_gates - netlist_gates
+        raise check50.Failure(f"Found additional nets in output.csv that are not in the netlist: {extra_gates}")
 
-        for i, wires in enumerate(wire_coords_3d):
-            net_1, net_2 = df["net"].iloc[i][1:-1].split(",")
-            net_1_coord = print_pos_3d[int(net_1)]
-            net_2_coord = print_pos_3d[int(net_2)]
 
-            for c in wires:
-                if c != net_1_coord and c != net_2_coord:
-                    if c in wire_coords_3d_flatten:
-                        wire_errors.append([c, wire_coords_3d_flatten[c], i])
-                    else:
-                        wire_coords_3d_flatten[c] = i
+def check_grid(chip_id, output_data):
+    # Initiate the grid
+    grid = Grid(f"data/chip_{chip_id}/print_{chip_id}.csv")
 
-        intersections = len(wire_errors)
+    # Create the nets from output.csv
+    nets = []
+    for line in output_data:
+        gate_ids = line["net"].strip("()").split(",")
+        gate_a = grid.get_gate(gate_ids[0])
+        gate_b = grid.get_gate(gate_ids[1])
 
-        # Compute the total number of wires used.
-        wire_lengths = []
+        wire_strings = re.findall(r"([0-9]+,[0-9]+)", line["wires"])
+        wires = [Wire(*ws.split(",")) for ws in wire_strings]
 
-        for i, wires in enumerate(wire_coords):
-            net_1, net_2 = df["net"].iloc[i][1:-1].split(",")
-            wire_lengths.append([net_1, net_2, len(wires) - 1])
+        nets.append(Net(gate_a, gate_b, wires))
 
-        wire_count = sum([x[2] for x in wire_lengths])
+    # Place the nets on the grid
+    for net in nets:
+        grid.place_net(net)
 
-        # Check if the total costs are equal to the ones in output.csv.
-        total_costs = wire_count + 300 * intersections
+    return grid
 
-        if total_costs != int(df["wires"].iloc[-1]):
-            error = f"Length in output.csv is not equal to the computed " \
-                    f"length.\n    Computed wire length of {total_costs} is " \
-                    f"made up of:\n"
 
-            for net_1, net_2, length in wire_lengths:
-                error = "".join([error, f"\t{length} \twires between net "
-                                        f"{net_1} \tand net {net_2}\n"])
-            error = "".join([error, f"\t{300  * intersections} \textra costs "
-                                    f"for 300 * {intersections} "
-                                    f"intersections\n"])
+@check50.check(is_solution)
+def is_score_correct(score):
+    """The score is correct"""
+    with open("output.csv") as f:
+        data = list(csv.DictReader(f))
+        output_score = int(data[-1]["wires"])
 
-            raise check50.Failure(error)
+    if output_score != score:
+        raise check50.Failure(f"The score in output.csv ({output_score}) is incorrect, the actual score is {score}")
+
+
+class UnconnectedNetError(check50.Failure):
+    pass
+
+class InteruptedNetError(check50.Failure):
+    pass
+
+class OccupiedByGateError(check50.Failure):
+    pass
+
+
+class Gate:
+    def __init__(self, id, x, y):
+        self.id = str(id)
+        self.x = int(x)
+        self.y = int(y)
+        self.z = 0
+
+    def __repr__(self):
+        return f"G({self.id})"
+
+
+class Wire:
+    def __init__(self, x, y, z=0):
+        self.x = int(x)
+        self.y = int(y)
+        self.z = int(z)
+
+    def is_connected_to_gate(self, gate):
+        return self._is_neighbor(gate, distance=0)
+
+    def is_neighbor_of_wire(self, wire):
+        return self._is_neighbor(wire)
+
+    def _is_neighbor(self, other, distance=1):
+        return abs(self.x - other.x) + abs(self.y - other.y) + abs(self.z - other.z) == distance
+
+    def __repr__(self):
+        return f"W({self.x, self.y, self.z})"
+
+
+class Net:
+    def __init__(self, gate_a, gate_b, wires):
+        self.gate_a = gate_a
+        self.gate_b = gate_b
+        self.wires = wires
+
+        self._check_connected()
+        self._check_continuous()
+
+    def _check_connected(self):
+        if self.wires[0].is_connected_to_gate(self.gate_a) and self.wires[-1].is_connected_to_gate(self.gate_b):
+            return
+
+        if self.wires[0].is_connected_to_gate(self.gate_b) and self.wires[-1].is_connected_to_gate(self.gate_a):
+            return
+
+        raise UnconnectedNetError(f"{self} is not connected to gate {self.gate_a} and gate {self.gate_b}")
+
+    def _check_continuous(self):
+        cursor = self.wires[0]
+        for wire in self.wires[1:]:
+            if not cursor.is_neighbor_of_wire(wire):
+                raise InteruptedNetError(f"{self} is interupted, wires {cursor} and {wire} do not connect to each other.")
+            cursor = wire
+
+    def __repr__(self):
+        return f"N({self.gate_a.id},{self.gate_b.id})"
+
+
+class Grid:
+    NUMBER_OF_LAYERS = 8
+    
+    class Cell:
+        def __init__(self):
+            self.occupants = []
+            self.is_gate = False
+
+        def add_net(self, net):
+            if self.is_gate:
+                raise OccupiedByGateError(f"Net {net} crosses the following gate {self.occupants[0]}")
+            self.occupants.append(net)
+
+        def set_as_gate(self, gate):
+            assert not self.is_gate
+            self.occupants = [gate]
+            self.is_gate = True
+
+        def __repr__(self):
+            return ",".join(repr(occ) for occ in self.occupants) if self.occupants else "."
+
+
+    def __init__(self, print_filepath):
+        self.gates = []
+        with open(print_filepath) as f:
+            for entry in csv.DictReader(f):
+                x = int(entry["x"])
+                y = int(entry["y"])
+                self.gates.append(Gate(entry["chip"], x, y))
+
+        self.nets = []
+
+        self.width = max(gate.x for gate in self.gates) + 2
+        self.height = max(gate.y for gate in self.gates) + 2
+
+        create_layer = lambda: [[Grid.Cell() for _ in range(self.width)] for _ in range(self.height)]
+        self._grid = [create_layer() for _ in range(Grid.NUMBER_OF_LAYERS)]
+
+        for gate in self.gates:
+            self.place_gate(gate)
+
+    def place_gate(self, gate):
+        gate_layer = self._grid[0]
+        gate_layer[gate.y][gate.x].set_as_gate(gate)
+
+    def place_net(self, net):
+        self.nets.append(net)
+        for wire in net.wires[1:-1]:
+            self._grid[wire.z][wire.y][wire.x].add_net(net)
+
+    def get_gate(self, gate_id):
+        for gate in self.gates:
+            if gate.id == gate_id:
+                return gate
+
+    def score(self):
+        score = 0
+        for z in range(Grid.NUMBER_OF_LAYERS):
+            for y in range(self.height):
+                for x in range(self.width):
+                    cell = self._grid[z][y][x]
+
+                    # If this is a gate, skip                    
+                    if cell.is_gate:
+                        continue
+
+                    # Every piece of wire increases the score by 1
+                    score += len(cell.occupants)
+
+                    # If there's more than one piece of wire, apply the 300 penalty per additional wire
+                    score += max(0, len(cell.occupants) - 1) * 300
+        
+        # Wires run between intersections, but this representation uses intersections, so add 1 for each wire
+        # (A wire with 1 intersection has length 2, 2 intersections has length 3, and so on)
+        score += len(self.nets)
+
+        return score
+
+    def pretty_print(self):
+        fmt = ""
+        for i in range(Grid.NUMBER_OF_LAYERS):
+            fmt += self._pretty_print_layer(i) + "\n"
+        return fmt        
+
+    def pretty_print_gates(self):
+        return self._pretty_print_layer(0)
+
+    def _pretty_print_layer(self, layer_number):
+        layer = self._grid[layer_number]
+
+        cell_width = 0
+        for y in reversed(range(self.height)):
+            for x in range(self.width):
+                cell_width = max(cell_width, len(str(layer[y][x])))
+
+        fmt = " ".join(["".rjust(cell_width)] + [str(i + 1).rjust(cell_width) for i in range(self.width)]) + "\n"
+        for y in reversed(range(self.height)):
+            fmt += str(y + 1).rjust(cell_width) + " "
+            
+            for x in range(self.width):
+                fmt += str(layer[y][x]).rjust(cell_width) + " "
+            fmt += "\n"
+
+        return fmt
