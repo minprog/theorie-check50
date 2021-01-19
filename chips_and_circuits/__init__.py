@@ -137,8 +137,8 @@ def is_solution():
     # For debugging purposes, log the grid to debug. Set this with "--log-level debug" when running check50
     logging.getLogger("check50").debug(grid.pretty_print())
 
-    # Pass the score of the grid to following checks
-    return grid.score()
+    # Pass the cost of the grid to following checks
+    return grid.get_cost()
 
 
 def check_netlist_complete(chip_id, net_id, output_data):
@@ -209,14 +209,14 @@ def check_grid(chip_id, output_data):
 
 
 @check50.check(is_solution)
-def is_score_correct(score):
-    """The score is correct"""
+def is_cost_correct(cost):
+    """The cost is correct"""
     with open("output.csv") as f:
         data = list(csv.DictReader(f))
-        output_score = int(data[-1]["wires"])
+        output_cost = int(data[-1]["wires"])
 
-    if output_score != score:
-        raise check50.Failure(f"The score in output.csv ({output_score}) is incorrect, the actual score is {score}")
+    if output_cost != cost:
+        raise check50.Failure(f"The cost in output.csv ({output_cost}) is incorrect, the actual cost is {cost}")
 
 
 class UnconnectedNetError(check50.Failure):
@@ -343,8 +343,8 @@ class Grid:
             if gate.id == gate_id:
                 return gate
 
-    def score(self):
-        score = 0
+    def get_cost(self):
+        cost = 0
         for z in range(Grid.NUMBER_OF_LAYERS):
             for y in range(self.height):
                 for x in range(self.width):
@@ -354,17 +354,17 @@ class Grid:
                     if cell.is_gate:
                         continue
 
-                    # Every piece of wire increases the score by 1
-                    score += len(cell.occupants)
+                    # Every piece of wire increases the cost by 1
+                    cost += len(cell.occupants)
 
                     # If there's more than one piece of wire, apply the 300 penalty per additional wire
-                    score += max(0, len(cell.occupants) - 1) * 300
+                    cost += max(0, len(cell.occupants) - 1) * 300
         
         # Wires run between intersections, but this representation uses intersections, so add 1 for each wire
         # (A wire with 1 intersection has length 2, 2 intersections has length 3, and so on)
-        score += len(self.nets)
+        cost += len(self.nets)
 
-        return score
+        return cost
 
     def pretty_print(self):
         fmt = ""
