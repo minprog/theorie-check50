@@ -196,7 +196,7 @@ def check_grid(chip_id, output_data):
         gate_a = grid.get_gate(gate_ids[0])
         gate_b = grid.get_gate(gate_ids[1])
 
-        wire_strings = re.findall(r"([0-9]+,[0-9]+)", line["wires"])
+        wire_strings = re.findall(r"[0-9]+,[0-9]+(?:,[0-9])*", line["wires"])
         wires = [Wire(*ws.split(",")) for ws in wire_strings]
 
         nets.append(Net(gate_a, gate_b, wires))
