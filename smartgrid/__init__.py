@@ -452,10 +452,13 @@ def check_cost():
         # Collect all cables.
         cables = []
         for i in range(1, len(df)):
-            for house in df.loc[i]["houses"]:
-                cables.extend(house["cables"])
+            battery_id = df.loc[i]["location"]
 
-        # Determine if cables may be shared and remove duplicates if so.
+            for house in df.loc[i]["houses"]:
+                cable_battery_combos = [(cable, battery_id) for cable in house["cables"]]
+                cables.extend(cable_battery_combos)
+
+        # Determine if cables may be shared and remove duplicates if they are connected to the same battery
         if np.isin(["costs-shared"], list(df)):
             cables = list(set(cables))
             cost_label = "costs-shared"
