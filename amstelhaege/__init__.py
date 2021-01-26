@@ -251,6 +251,7 @@ def check_score():
         # networth.
         base_worths = [2850, 3990, 6100]
         perc_incr = [3, 4, 6]
+        min_extra_meters = [2, 3, 6]
         networths = [0, 0, 0]
 
         for i, type in enumerate(TYPES[1:]):
@@ -258,8 +259,7 @@ def check_score():
             networths[i] += base_worths[i] * 100 * len(structures)
 
             for s in structures:
-                networths[i] += perc_incr[i] * free_space[s] \
-                                * base_worths[i]
+                networths[i] += perc_incr[i] * (free_space[s] - min_extra_meters[i]) * base_worths[i]
 
         if sum(networths) != int(df["corner_1"].iloc[-1]):
             raise check50.Failure("Networth in output.csv is not equal to the "
