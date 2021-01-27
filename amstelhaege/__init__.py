@@ -15,7 +15,9 @@ import check50
 from shapely.geometry import Polygon, MultiPolygon
 import pandas as pd
 import numpy as np
+
 import math
+import logging
 import os
 import re
 
@@ -93,12 +95,13 @@ def check_file():
             raise check50.Failure(error)
 
         # Check if the percentage of different houses are correct.
-        perc = round(df['type'][:-1][df.type != "WATER"]
-                     .value_counts(normalize=True) * 100).astype(int)
-        if perc["EENGEZINSWONING"] != 60 or perc["BUNGALOW"] != 25 or \
-                perc["MAISON"] != 15:
-            raise check50.Failure("Percentage of different houses are "
-                                  "incorrect")
+        perc = {"EENGEZINSWONING":0, "BUNGALOW":0, "MAISON":0}
+        perc.update(round(df['type'][:-1][df.type != "WATER"].value_counts(normalize=True) * 100).astype(int))
+        if perc["EENGEZINSWONING"] != 60 or perc["BUNGALOW"] != 25 or perc["MAISON"] != 15:
+            logger = logging.getLogger("check50")
+            logger.warn("The distribution of different types of houses is incorrect.")
+            logger.warn(f"Expected:  60% EENGEZINSWONING, 25% BUNGALOW, 15% MAISON")
+            logger.warn(f"But found: {perc['EENGEZINSWONING']}% EENGEZINSWONING, {perc['BUNGALOW']}% BUNGALOW, {perc['MAISON']}% MAISON")
 
         # Check if all values in the coordinate columns are of correct datatype
         # and value, except for the last row.
@@ -239,33 +242,49 @@ def check_score():
             ps_houses[row[0]] = p
 
         # Compute the free meters per house.
-        free_space = {}
+        free_spaces = {}
         house_polys = list(ps_houses.values())
 
         for s, p in ps_houses.items():
             other_houses = list(house_polys)
             other_houses.remove(p)
-            free_space[s] = math.floor(p.distance(MultiPolygon(other_houses)))
+            free_spaces[s] = math.floor(p.distance(MultiPolygon(other_houses)))
 
         # Fetch structures per type and compute networths to make up the total
         # networth.
         base_worths = [2850, 3990, 6100]
         perc_incr = [3, 4, 6]
-        min_extra_meters = [2, 3, 6]
+        min_free_spaces = [2, 3, 6]
         networths = [0, 0, 0]
+
+        calc_per_structure = {}
 
         for i, type in enumerate(TYPES[1:]):
             structures = df[df.type == type]["structure"].values
-            networths[i] += base_worths[i] * 100 * len(structures)
 
             for s in structures:
-                networths[i] += perc_incr[i] * (free_space[s] - min_extra_meters[i]) * base_worths[i]
+                base_worth = base_worths[i] * 100
+                free_space = free_spaces[s]
+                required_free_space = min_free_spaces[i]
+                percentage = perc_incr[i]
+                worth = base_worth + (percentage / 100) * (free_space - required_free_space) * base_worth
+
+                networths[i] += worth
+
+                calc_per_structure[s] = f"{s} => {base_worth}$ + {percentage / 100} * ({free_space} - {required_free_space}) * {base_worth}$ = {worth}$"
 
         if sum(networths) != int(df["corner_1"].iloc[-1]):
+            calcs = []
+            for house in ps_houses:
+                calcs.append(calc_per_structure[house])
+            calcs_fmt = "\n\t".join(calcs)
+
             raise check50.Failure("Networth in output.csv is not equal to the "
                                   "computed networth from the output.\n    "
                                   f"Computed networth of {sum(networths):,} "
                                   "is made up of:\n"
                                   f"\t{networths[0]:,} \tfrom '{TYPES[1]}'\n"
                                   f"\t{networths[1]:,} \tfrom '{TYPES[2]}'\n"
-                                  f"\t{networths[2]:,} \tfrom '{TYPES[3]}'\n")
+                                  f"\t{networths[2]:,} \tfrom '{TYPES[3]}'\n"
+                                  f"Below are all the houses and what they contribute to the networth\n"
+                                  f"\t{calcs_fmt}")
