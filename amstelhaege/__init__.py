@@ -248,7 +248,7 @@ def check_score():
         for s, p in ps_houses.items():
             other_houses = list(house_polys)
             other_houses.remove(p)
-            free_spaces[s] = math.floor(p.distance(MultiPolygon(other_houses)))
+            free_spaces[s] = p.distance(MultiPolygon(other_houses))
 
         # Fetch structures per type and compute networths to make up the total
         # networth.
