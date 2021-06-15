@@ -251,8 +251,10 @@ def check_score():
             free_spaces[s] = math.floor(round(p.distance(MultiPolygon(other_houses)), 5))
             
             if s == "eengezinswoning_11":
-                for other_house in other_houses:
-                    check50.log(f"{s} {p.distance(other_house)}")
+                for s2, p2 in ps_houses.items():
+                    if s == s2:
+                        continue
+                    check50.log(f"{s} {s2} {p.distance(p2)}")
 
         # Fetch structures per type and compute networths to make up the total
         # networth.
