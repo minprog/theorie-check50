@@ -246,7 +246,7 @@ def check_file():
             raise check50.Failure(error)
 
         # Check if all cables have locations in a valid format.
-        error = "Expected all cable locations to be floats, but found:\n"
+        error = 'Expected all cable locations to be a string in the format "int,int", but found:\n'
         cable_errors = []
 
         for i in range(1, len(df)):
@@ -449,23 +449,23 @@ def check_cost():
     with open("output.json") as jsonfile:
         df = pd.read_json(jsonfile)
 
-        # Collect all cables.
-        cables = []
+        # Collect all cable segments.
+        cable_segments = []
         for i in range(1, len(df)):
             battery_id = df.loc[i]["location"]
 
             for house in df.loc[i]["houses"]:
-                cable_battery_combos = [(cable, battery_id) for cable in house["cables"]]
-                cables.extend(cable_battery_combos)
+                for cable_a, cable_b in zip(house["cables"][:-1], house["cables"][1:]):
+                    cable_segments.append((cable_a, cable_b, battery_id))
 
         # Determine if cables may be shared and remove duplicates if they are connected to the same battery
         if np.isin(["costs-shared"], list(df)):
-            cables = list(set(cables))
+            cable_segments = list(set(cable_segments))
             cost_label = "costs-shared"
         else:
             cost_label = "costs-own"
 
-        cable_costs = 9 * len(cables)
+        cable_costs = 9 * len(cable_segments)
         battery_costs = 5000 * len(df[1:])
         total_costs = cable_costs + battery_costs
 
@@ -473,7 +473,7 @@ def check_cost():
             raise check50.Failure(f"Costs in output.json is not equal to the "
                                   f"computed costs.\n    Computed costs of "
                                   f"{total_costs} is made up of:\n\t"
-                                  f"{len(cables)} cables: \t{len(cables)} * 9 "
+                                  f"{len(cable_segments)} cable: \t{len(cable_segments)} * 9 "
                                   f" \t= {cable_costs}\n\t{len(df[1:])} "
                                   f"batteries: \t{len(df[1:])} * 5000 \t= "
                                   f"{battery_costs}\n\tTotal costs: \t"
