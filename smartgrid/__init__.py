@@ -76,13 +76,13 @@ def check_file():
 
         # Check if the header attributes are ints.
         try:
-            district = df.loc[0]["district"].astype("Int64")
+            district = df.loc[0]["district"].astype("np.int64")
         except AttributeError:
             raise check50.Failure("Expected integer value for 'district', but "
                                   f"got:\n\t'{df.loc[0]['district']}'")
 
         try:
-            df.loc[0][cost_label].astype("Int64")
+            df.loc[0][cost_label].astype("np.int64")
         except AttributeError:
             raise check50.Failure(f"Expected integer value for '{cost_label}', "
                                   f"but got:\n\t'{df.loc[0][cost_label]}'")
