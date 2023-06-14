@@ -212,7 +212,7 @@ def check_score():
         used_cons = pd.DataFrame()
 
         for row, track in enumerate(output_cons):
-            used_cons = used_cons.append(pd.DataFrame(track))
+            used_cons = used_cons.concat(pd.DataFrame(track), ignore_index=True)
             time = 0
 
             for con in track:
