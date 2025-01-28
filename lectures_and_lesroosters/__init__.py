@@ -34,6 +34,18 @@ def no_duplicates():
         )
 
 @check50.check(no_duplicates)
+def only_valid_timeslots():
+    """Enkel de tijdsloten 9, 11, 13, 15 en 17 zijn gebruikt"""
+    schedule = pd.read_csv("output.csv")
+    used_timeslots = set(schedule["tijdslot"].unique())
+
+    if used_timeslots - {9, 11, 13, 15, 17} != set():
+        raise check50.Failure(
+            "Rooster is ongeldig omdat de volgende tijdsloten zijn gebruikt:\n" +
+            str(used_timeslots - {9, 11, 13, 15, 17})
+        )
+
+@check50.check(only_valid_timeslots)
 def only_biggest_in_evening():
     """Het late tijdslot wordt alleen door de grootste zaal (C0.110) gebruikt"""
     schedule = pd.read_csv("output.csv")
@@ -63,6 +75,113 @@ def no_room_collisions():
             "Rooster is ongeldig omdat er in hetzelfde zaalslot twee vakken zijn geroosterd:\n" +
             str(duplicates[[ "dag", "tijdslot", "zaal", "vak"]])
         )
+
+
+@check50.check(correct_column_names)
+def all_courses_scheduled():
+    """Alle vakken zijn ingeroosterd"""
+    schedule = pd.read_csv("output.csv")
+    unique_courses = set(pd.read_csv("vakken.csv")["Vak"].unique())
+    unique_scheduled_courses = set(schedule["vak"].unique())
+
+    if unique_scheduled_courses - unique_courses != set():
+        raise check50.Failure(
+            "Rooster is ongeldig omdat de volgende vakken in het rooster zitten, maar niet in vakken.csv:\n" +
+            str(unique_scheduled_courses - unique_courses)
+        )
+
+    if unique_courses - unique_scheduled_courses != set():
+        raise check50.Failure(
+            "Rooster is ongeldig omdat de volgende vakken niet in het rooster zitten, maar wel in vakken.csv:\n" +
+            str(unique_courses - unique_scheduled_courses)
+        )
+
+
+@check50.check(correct_column_names)
+def all_lectures_scheduled():
+    """Alle hoorcolleges zijn ingeroosterd"""
+    schedule = pd.read_csv("output.csv")
+    courses = pd.read_csv("vakken.csv")
+
+    for _, row in courses.iterrows():
+        course_name = row["Vak"]
+        n_lectures = row["#Hoorcolleges"]
+
+        scheduled_lectures = schedule[
+            (schedule["vak"] == course_name) &
+            (schedule["activiteit"].str.startswith("h"))
+        ].drop_duplicates(subset=["vak", "activiteit"])
+
+        if len(scheduled_lectures) != n_lectures:
+            if len(scheduled_lectures) == 0:
+                raise check50.Failure(
+                    f"Rooster is ongeldig omdat er voor het vak '{course_name}' precies {n_lectures} hoorcollege(s) moeten worden geroosterd. Maar er zijn geen hoorcolleges ingeroosterd."
+                )
+
+            raise check50.Failure(
+                f"Rooster is ongeldig omdat er voor het vak '{course_name}' precies {n_lectures} hoorcollege(s) moeten worden geroosterd. Maar de volgende hoorcolleges zijn ingeroosterd:\n" +
+                str(list(scheduled_lectures["vak"]))
+            )
+
+@check50.check(correct_column_names)
+def all_workshops_scheduled():
+    """Alle werkcolleges zijn ingeroosterd"""
+    schedule = pd.read_csv("output.csv")
+    courses = pd.read_csv("vakken.csv")
+
+    for _, row in courses.iterrows():
+        course_name = row["Vak"]
+        n_workshops = row["#Werkcolleges"]
+        
+        scheduled_workshops = schedule[
+            (schedule["vak"] == course_name) &
+            (schedule["activiteit"].str.startswith("w"))
+        ].drop_duplicates(subset=["vak", "activiteit"])
+
+        if len(scheduled_workshops) < n_workshops:
+            if len(scheduled_workshops) == 0:
+                raise check50.Failure(
+                     f"Rooster is ongeldig omdat er voor het vak '{course_name}' precies {n_workshops} werkcollegs(s) moeten worden geroosterd. Maar er zijn geen werkcolleges ingeroosterd."
+                )
+
+            raise check50.Failure(
+                f"Rooster is ongeldig omdat er voor het vak '{course_name}' precies {n_workshops} werkcollege(s) moeten worden geroosterd. Maar de volgende werkcolleges zijn ingeroosterd:\n" +
+                str(list(scheduled_workshops["vak"]))
+            )
+
+@check50.check(correct_column_names)
+def all_practicals_scheduled():
+    """Alle practica zijn ingeroosterd"""
+    schedule = pd.read_csv("output.csv")
+    courses = pd.read_csv("vakken.csv")
+
+    for _, row in courses.iterrows():
+        course_name = row["Vak"]
+        n_practicals = row["#Werkcolleges"]
+        
+        scheduled_practicals = schedule[
+            (schedule["vak"] == course_name) &
+            (schedule["activiteit"].str.startswith("p"))
+        ].drop_duplicates(subset=["vak", "activiteit"])
+
+        if len(scheduled_practicals) < n_practicals:
+            if len(scheduled_practicals) == 0:
+                raise check50.Failure(
+                     f"Rooster is ongeldig omdat er voor het vak '{course_name}' precies {n_practicals} practica moeten worden geroosterd. Maar er zijn geen practica ingeroosterd."
+                )
+
+            raise check50.Failure(
+                f"Rooster is ongeldig omdat er voor het vak '{course_name}' precies {n_practicals} practica moeten worden geroosterd. Maar de volgende practica zijn ingeroosterd:\n" +
+                str(list(scheduled_practicals["vak"]))
+            )
+
+
+
+
+# TODO all students in each lecture
+# TODO all students in enough workshops
+# TODO all students in enough practicals
+
 
 # @check50.check(no_room_collisions)
 # def are_all_courses_scheduled():
