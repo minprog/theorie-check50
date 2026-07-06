@@ -45,6 +45,7 @@ def only_valid_timeslots():
             str(used_timeslots - {9, 11, 13, 15, 17})
         )
 
+
 @check50.check(only_valid_timeslots)
 def only_biggest_in_evening():
     """Het late tijdslot wordt alleen door de grootste zaal (C0.110) gebruikt"""
@@ -61,7 +62,8 @@ def only_biggest_in_evening():
                 str(evening_group_in_wrong_room[["dag", "tijdslot", "zaal", "vak"]])
             )
 
-@check50.check(no_duplicates)
+
+@check50.check(only_biggest_in_evening)
 def no_room_collisions():
     """Er zijn geen dubbelgeboekte zaalsloten"""
     schedule = pd.read_csv("output.csv")
@@ -77,7 +79,7 @@ def no_room_collisions():
         )
 
 
-@check50.check(correct_column_names)
+@check50.check(no_room_collisions)
 def all_courses_scheduled():
     """Alle vakken zijn ingeroosterd"""
     schedule = pd.read_csv("output.csv")
@@ -97,7 +99,7 @@ def all_courses_scheduled():
         )
 
 
-@check50.check(correct_column_names)
+@check50.check(all_courses_scheduled)
 def all_lectures_scheduled():
     """Alle hoorcolleges zijn ingeroosterd"""
     schedule = pd.read_csv("output.csv")
@@ -123,7 +125,8 @@ def all_lectures_scheduled():
                 str(list(scheduled_lectures["vak"]))
             )
 
-@check50.check(correct_column_names)
+
+@check50.check(all_lectures_scheduled)
 def all_workshops_scheduled():
     """Alle werkcolleges zijn ingeroosterd"""
     schedule = pd.read_csv("output.csv")
@@ -149,7 +152,8 @@ def all_workshops_scheduled():
                 str(list(scheduled_workshops["vak"]))
             )
 
-@check50.check(correct_column_names)
+
+@check50.check(all_workshops_scheduled)
 def all_practicals_scheduled():
     """Alle practica zijn ingeroosterd"""
     schedule = pd.read_csv("output.csv")
@@ -178,158 +182,220 @@ def all_practicals_scheduled():
 
 
 
-# TODO all students in each lecture
-# TODO all students in enough workshops
-# TODO all students in enough practicals
+def _enrolled_students(vak, students):
+    """Return the set of (first name) students enrolled in vak."""
+    vak_columns = ["Vak1", "Vak2", "Vak3", "Vak4", "Vak5"]
+    enrolled = students[(students[vak_columns] == vak).any(axis=1)]
+    return set(enrolled["Voornaam"])
 
 
-# @check50.check(no_room_collisions)
-# def are_all_courses_scheduled():
-#     """Check if all courses are scheduled."""
-#     schedule = pd.read_csv("output.csv")
+@check50.check(all_practicals_scheduled)
+def all_students_in_each_lecture():
+    """Alle ingeschreven studenten zijn aanwezig bij elk hoorcollege"""
+    schedule = pd.read_csv("output.csv")
+    courses = pd.read_csv("vakken.csv")
+    students = pd.read_csv("studenten_en_vakken.csv")
 
-#     courses = pd.read_csv("vakken.csv")
+    for _, row in courses.iterrows():
+        course_name = row["Vak"]
+        enrolled = _enrolled_students(course_name, students)
 
-#     scheduled_courses = schedule.groupby(["course", "activity"])
-#     scheduled = set()
-#     for course, group in scheduled_courses:
-#         scheduled.add(course)
+        lectures = schedule[
+            (schedule["vak"] == course_name) &
+            (schedule["activiteit"].str.startswith("h"))
+        ]
 
-#     necessary = set()
-#     for i, row in courses.iterrows():
-#         h = row["#Hoorcolleges"]
-#         w = row["#Werkcolleges"]
-#         p = row["#Practica"]
-#         for j in range(h):
-#             type = "h" + str(j + 1)
-#             necessary.add((row["Vak"], type))
-#         for j in range(w):
-#             type = "w" + str(j + 1)
-#             necessary.add((row["Vak"], type))
-#         for j in range(h):
-#             type = "h" + str(j + 1)
-#             necessary.add((row["Vak"], type))
+        for activiteit, group in lectures.groupby("activiteit"):
+            attending = set(group["student"])
+            missing = enrolled - attending
 
-#     if not necessary.issubset(scheduled):
-#         raise check50.Failure("Schedule is infeasible since not all activities are scheduled per course")
+            if missing:
+                raise check50.Failure(
+                    f"Rooster is ongeldig omdat niet alle ingeschreven studenten van '{course_name}' "
+                    f"aanwezig zijn bij hoorcollege '{activiteit}'. Ontbrekende studenten:\n" +
+                    str(missing)
+                )
 
 
-# @check50.check(are_all_courses_scheduled)
-# def are_all_students_assigned():
-#     """All students are assigned to all their activities."""
-#     pass
+@check50.check(all_students_in_each_lecture)
+def all_students_in_enough_workshops():
+    """Alle ingeschreven studenten zijn ingedeeld in een werkcollege"""
+    schedule = pd.read_csv("output.csv")
+    courses = pd.read_csv("vakken.csv")
+    students = pd.read_csv("studenten_en_vakken.csv")
 
-# @check50.check(are_all_students_assigned)
-# def not_exceed_free_slots():
-#     """Schedule does not exceed the number of maximum free slots."""
-#     schedule = pd.read_csv("output.csv")
-    
-#     malus, infeasible_students = check_free_slots(schedule)
-#     if infeasible_students > 0:
-#         raise check50.Failure(f"Schedule is infeasible due to too many free slots for {infeasible_students} students. "
-#         "Score will still be calculated, no points are assigned for the three free slots")
+    for _, row in courses.iterrows():
+        course_name = row["Vak"]
+        if row["#Werkcolleges"] == 0:
+            continue
 
-#     return malus
+        enrolled = _enrolled_students(course_name, students)
 
-# @check50.check(not_exceed_free_slots)
-# def score(free_slots_malus):
-#     """Your score is: """
-#     schedule = pd.read_csv("output.csv")
-#     rooms = pd.read_csv("zalen.csv")
+        workshops = schedule[
+            (schedule["vak"] == course_name) &
+            (schedule["activiteit"].str.startswith("w"))
+        ]
+        attending = set(workshops["student"])
+        missing = enrolled - attending
 
-#     overlap_malus = get_overlap_malus(schedule) # TODO
-#     room_malus = get_room_malus(schedule, rooms)
-#     evening_malus = get_evening_malus(schedule)
-
-#     score = free_slots_malus + overlap_malus + room_malus + evening_malus
-#     check50.log(f"Malus points for free slots: {free_slots_malus}")
-#     check50.log(f"Malus points for overlap: {overlap_malus}")
-#     check50.log(f"Malus points for rooms: {room_malus}")
-#     check50.log(f"Malus points for evening slot: {evening_malus}")
-#     check50.log(f"Total score: {score}")
-    
-
-# def get_overlap_malus(df):
-#     """
-#     Returns the number of malus points based on the overlap between courses per
-#     student:
-#     - 2 courses at the same time: 1 malus point
-#     - 3 courses at the same time: 2 malus points
-#     """
-#     duplicate = df[df.duplicated(["student", "day", "time"])]
-#     malus_points = duplicate.shape[0]
-
-#     return malus_points
+        if missing:
+            raise check50.Failure(
+                f"Rooster is ongeldig omdat niet alle ingeschreven studenten van '{course_name}' "
+                "zijn ingedeeld in een werkcollege. Ontbrekende studenten:\n" +
+                str(missing)
+            )
 
 
-# def get_room_malus(schedule, rooms):
-#     """
-#     Returns the number of malus points based on the use of the evening slot and
-#     the number of students that do not fit in the room
-#     """
-#     courses = schedule.groupby(["course", "activity", "room", "time", "day"])
-#     malus_students_room = 0
+@check50.check(all_students_in_enough_workshops)
+def all_students_in_enough_practicals():
+    """Alle ingeschreven studenten zijn ingedeeld in een practicum"""
+    schedule = pd.read_csv("output.csv")
+    courses = pd.read_csv("vakken.csv")
+    students = pd.read_csv("studenten_en_vakken.csv")
 
-#     for course, group in courses:
-#         students = group.shape[0]
-#         room = group.iloc[0]["room"]
+    for _, row in courses.iterrows():
+        course_name = row["Vak"]
+        if row["#Practica"] == 0:
+            continue
 
-#         for i, row in rooms.iterrows():
-#             if rooms.iloc[i]["Zaalnummber"] == room:
-#                 capacity = rooms.iloc[i]["Max. capaciteit"]
-#                 if capacity - students < 0:
-#                      malus_students_room += abs(capacity - students)
+        enrolled = _enrolled_students(course_name, students)
 
-#     return malus_students_room
+        practicals = schedule[
+            (schedule["vak"] == course_name) &
+            (schedule["activiteit"].str.startswith("p"))
+        ]
+        attending = set(practicals["student"])
+        missing = enrolled - attending
 
-# def get_evening_malus(schedule):
-#     courses = schedule.groupby(["course", "activity", "room", "time", "day"])
-#     malus_evening_slot = 0
-#     for course, group in courses:
+        if missing:
+            raise check50.Failure(
+                f"Rooster is ongeldig omdat niet alle ingeschreven studenten van '{course_name}' "
+                "zijn ingedeeld in een practicum. Ontbrekende studenten:\n" +
+                str(missing)
+            )
 
-#         # check usage evening slot
-#         if group.iloc[0]["time"] == 17:
-#             malus_evening_slot += 5
 
-#     return malus_evening_slot
+@check50.check(all_students_in_enough_practicals)
+def workshops_not_over_capacity():
+    """Geen enkel werkcollege zit boven de maximale capaciteit"""
+    schedule = pd.read_csv("output.csv")
+    courses = pd.read_csv("vakken.csv")
 
-# def check_free_slots(df):
-#     """
-#     Returns the number of malus points based on the number of free slots per
-#     student:
-#     - 1 free slot -> 1 malus point
-#     - 2 free slots -> 3 malus points
-#     - 3 free slots -> infeasible schedule
-#     """
+    for _, row in courses.iterrows():
+        course_name = row["Vak"]
+        if row["#Werkcolleges"] == 0:
+            continue
 
-#     student_day = df.groupby(["student", "day"])
-#     infeasible_students = 0
-#     malus = 0
-#     for student, group in student_day:
-#         prevmalus = malus
-#         courses = group.sort_values("time")
-#         slots = courses.drop_duplicates("time")
+        max_capacity = row["Max. stud. Werkcollege"]
 
-#         if len(slots) > 1:
-#             first = slots.iloc[0]["time"]
-#             last = slots.iloc[-1]["time"]
+        workshops = schedule[
+            (schedule["vak"] == course_name) &
+            (schedule["activiteit"].str.startswith("w"))
+        ]
 
-#             if len(slots) == 2:
-#                 if last - first == 4:
-#                     malus += 1
-#                 elif last - first == 6:
-#                     malus += 3
-#                 elif last - first > 6:
-#                     infeasible_students += 1
+        for (activiteit, zaal, dag, tijdslot), group in workshops.groupby(["activiteit", "zaal", "dag", "tijdslot"]):
+            n_students = len(group)
+            if n_students > max_capacity:
+                raise check50.Failure(
+                    f"Rooster is ongeldig omdat werkcollege '{activiteit}' van '{course_name}' "
+                    f"({zaal}, {dag} {tijdslot}) {n_students} studenten heeft, terwijl maximaal "
+                    f"{max_capacity} zijn toegestaan."
+                )
 
-#             elif len(slots) == 3:
-#                 if last - first == 6:
-#                     malus += 1
-#                 elif last - first == 8:
-#                     malus += 3
 
-#             elif len(slots) == 4:
-#                 if last - first == 10:
-#                     malus += 1
+@check50.check(workshops_not_over_capacity)
+def practicals_not_over_capacity():
+    """Geen enkel practicum zit boven de maximale capaciteit"""
+    schedule = pd.read_csv("output.csv")
+    courses = pd.read_csv("vakken.csv")
 
-#     return malus, infeasible_students
+    for _, row in courses.iterrows():
+        course_name = row["Vak"]
+        if row["#Practica"] == 0:
+            continue
+
+        max_capacity = row["Max. stud. Practicum"]
+
+        practicals = schedule[
+            (schedule["vak"] == course_name) &
+            (schedule["activiteit"].str.startswith("p"))
+        ]
+
+        for (activiteit, zaal, dag, tijdslot), group in practicals.groupby(["activiteit", "zaal", "dag", "tijdslot"]):
+            n_students = len(group)
+            if n_students > max_capacity:
+                raise check50.Failure(
+                    f"Rooster is ongeldig omdat practicum '{activiteit}' van '{course_name}' "
+                    f"({zaal}, {dag} {tijdslot}) {n_students} studenten heeft, terwijl maximaal "
+                    f"{max_capacity} zijn toegestaan."
+                )
+
+
+def _get_overlap_malus(schedule):
+    """
+    Ieder vakconflict (meer dan één activiteit op hetzelfde moment) in het
+    rooster van één student levert één maluspunt op.
+    """
+    conflicts = schedule[schedule.duplicated(["student", "dag", "tijdslot"])]
+    return conflicts.shape[0]
+
+
+def _get_room_malus(schedule, rooms):
+    """Één maluspunt per student die niet meer in de zaal past."""
+    sessions = schedule.groupby(["vak", "activiteit", "zaal", "dag", "tijdslot"])
+    malus = 0
+
+    for (_, _, zaal, _, _), group in sessions:
+        n_students = group.shape[0]
+        capacity = rooms.loc[rooms["Zaalnummber"] == zaal, "Max. capaciteit"].iloc[0]
+
+        if n_students > capacity:
+            malus += n_students - capacity
+
+    return malus
+
+
+def _get_evening_malus(schedule):
+    """Gebruik van het avondslot (tijdslot 17) kost vijf maluspunten per zaalslot."""
+    sessions = schedule.groupby(["vak", "activiteit", "zaal", "dag", "tijdslot"])
+    return sum(5 for (_, _, _, _, tijdslot), _ in sessions if tijdslot == 17)
+
+
+def _get_free_slots_malus(schedule):
+    """
+    Een tussenslot voor een student op een dag levert één maluspunt op. Twee
+    tussensloten op één dag voor een student levert drie maluspunten op.
+    """
+    valid_timeslots = sorted(schedule["tijdslot"].unique())
+    slot_index = {slot: i for i, slot in enumerate(valid_timeslots)}
+    malus_per_n_gaps = {0: 0, 1: 1, 2: 3}
+
+    malus = 0
+    for _, group in schedule.groupby(["student", "dag"]):
+        occupied = sorted(slot_index[t] for t in group["tijdslot"].unique())
+
+        if len(occupied) > 1:
+            n_gaps = (occupied[-1] - occupied[0] + 1) - len(occupied)
+            malus += malus_per_n_gaps.get(n_gaps, 0)
+
+    return malus
+
+
+@check50.check(practicals_not_over_capacity)
+def score():
+    """Score"""
+    schedule = pd.read_csv("output.csv")
+    rooms = pd.read_csv("zalen.csv")
+
+    overlap_malus = _get_overlap_malus(schedule)
+    room_malus = _get_room_malus(schedule, rooms)
+    evening_malus = _get_evening_malus(schedule)
+    free_slots_malus = _get_free_slots_malus(schedule)
+
+    total_score = overlap_malus + room_malus + evening_malus + free_slots_malus
+
+    check50.log(f"Maluspunten voor vakconflicten: {overlap_malus}")
+    check50.log(f"Maluspunten voor te volle zalen: {room_malus}")
+    check50.log(f"Maluspunten voor het avondslot: {evening_malus}")
+    check50.log(f"Maluspunten voor tussensloten: {free_slots_malus}")
+    check50.log(f"Totaal aantal maluspunten: {total_score}")
