@@ -219,60 +219,60 @@ def all_students_in_each_lecture():
 
 @check50.check(all_students_in_each_lecture)
 def all_students_in_enough_workshops():
-    """Alle ingeschreven studenten zijn ingedeeld in een werkcollege"""
+    """Alle ingeschreven studenten zijn ingedeeld in elk werkcollege"""
     schedule = pd.read_csv("output.csv")
     courses = pd.read_csv("vakken.csv")
     students = pd.read_csv("studenten_en_vakken.csv")
 
     for _, row in courses.iterrows():
         course_name = row["Vak"]
-        if row["#Werkcolleges"] == 0:
-            continue
+        n_workshops = row["#Werkcolleges"]
 
         enrolled = _enrolled_students(course_name, students)
 
-        workshops = schedule[
-            (schedule["vak"] == course_name) &
-            (schedule["activiteit"].str.startswith("w"))
-        ]
-        attending = set(workshops["student"])
-        missing = enrolled - attending
+        for n in range(1, n_workshops + 1):
+            activiteit = f"w{n}"
+            attending = set(schedule[
+                (schedule["vak"] == course_name) &
+                (schedule["activiteit"] == activiteit)
+            ]["student"])
+            missing = enrolled - attending
 
-        if missing:
-            raise check50.Failure(
-                f"Rooster is ongeldig omdat niet alle ingeschreven studenten van '{course_name}' "
-                "zijn ingedeeld in een werkcollege. Ontbrekende studenten:\n" +
-                str(missing)
-            )
+            if missing:
+                raise check50.Failure(
+                    f"Rooster is ongeldig omdat niet alle ingeschreven studenten van '{course_name}' "
+                    f"zijn ingedeeld in werkcollege '{activiteit}'. Ontbrekende studenten:\n" +
+                    str(missing)
+                )
 
 
 @check50.check(all_students_in_enough_workshops)
 def all_students_in_enough_practicals():
-    """Alle ingeschreven studenten zijn ingedeeld in een practicum"""
+    """Alle ingeschreven studenten zijn ingedeeld in elk practicum"""
     schedule = pd.read_csv("output.csv")
     courses = pd.read_csv("vakken.csv")
     students = pd.read_csv("studenten_en_vakken.csv")
 
     for _, row in courses.iterrows():
         course_name = row["Vak"]
-        if row["#Practica"] == 0:
-            continue
+        n_practicals = row["#Practica"]
 
         enrolled = _enrolled_students(course_name, students)
 
-        practicals = schedule[
-            (schedule["vak"] == course_name) &
-            (schedule["activiteit"].str.startswith("p"))
-        ]
-        attending = set(practicals["student"])
-        missing = enrolled - attending
+        for n in range(1, n_practicals + 1):
+            activiteit = f"p{n}"
+            attending = set(schedule[
+                (schedule["vak"] == course_name) &
+                (schedule["activiteit"] == activiteit)
+            ]["student"])
+            missing = enrolled - attending
 
-        if missing:
-            raise check50.Failure(
-                f"Rooster is ongeldig omdat niet alle ingeschreven studenten van '{course_name}' "
-                "zijn ingedeeld in een practicum. Ontbrekende studenten:\n" +
-                str(missing)
-            )
+            if missing:
+                raise check50.Failure(
+                    f"Rooster is ongeldig omdat niet alle ingeschreven studenten van '{course_name}' "
+                    f"zijn ingedeeld in practicum '{activiteit}'. Ontbrekende studenten:\n" +
+                    str(missing)
+                )
 
 
 @check50.check(all_students_in_enough_practicals)
