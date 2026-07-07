@@ -161,8 +161,8 @@ def all_practicals_scheduled():
 
     for _, row in courses.iterrows():
         course_name = row["Vak"]
-        n_practicals = row["#Werkcolleges"]
-        
+        n_practicals = row["#Practica"]
+
         scheduled_practicals = schedule[
             (schedule["vak"] == course_name) &
             (schedule["activiteit"].str.startswith("p"))
