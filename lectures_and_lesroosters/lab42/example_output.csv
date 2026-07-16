@@ -1,0 +1,611 @@
+student,vak,activiteit,zaal,dag,tijdslot
+Amber,Quantumrekenen,h1,L0.09,Dag1,9
+Arjen,Quantumrekenen,h1,L0.09,Dag1,9
+Bas,Quantumrekenen,h1,L0.09,Dag1,9
+Bram,Quantumrekenen,h1,L0.09,Dag1,9
+Britt,Quantumrekenen,h1,L0.09,Dag1,9
+Carlijn,Quantumrekenen,h1,L0.09,Dag1,9
+Daan,Quantumrekenen,h1,L0.09,Dag1,9
+Femke,Quantumrekenen,h1,L0.09,Dag1,9
+Hannah,Quantumrekenen,h1,L0.09,Dag1,9
+Harm,Quantumrekenen,h1,L0.09,Dag1,9
+Joep,Quantumrekenen,h1,L0.09,Dag1,9
+Kees,Quantumrekenen,h1,L0.09,Dag1,9
+Mees,Quantumrekenen,h1,L0.09,Dag1,9
+Noor,Quantumrekenen,h1,L0.09,Dag1,9
+Puck,Quantumrekenen,h1,L0.09,Dag1,9
+Quinn,Quantumrekenen,h1,L0.09,Dag1,9
+Rens,Quantumrekenen,h1,L0.09,Dag1,9
+Sanne,Quantumrekenen,h1,L0.09,Dag1,9
+Tess,Quantumrekenen,h1,L0.09,Dag1,9
+Teun,Quantumrekenen,h1,L0.09,Dag1,9
+Umut,Quantumrekenen,h1,L0.09,Dag1,9
+Veerle,Quantumrekenen,h1,L0.09,Dag1,9
+Ward,Quantumrekenen,h1,L0.09,Dag1,9
+Wessel,Quantumrekenen,h1,L0.09,Dag1,9
+Xavi,Quantumrekenen,h1,L0.09,Dag1,9
+Zeno,Quantumrekenen,h1,L0.09,Dag1,9
+Amber,Quantumrekenen,h2,L0.10,Dag1,9
+Arjen,Quantumrekenen,h2,L0.10,Dag1,9
+Bas,Quantumrekenen,h2,L0.10,Dag1,9
+Bram,Quantumrekenen,h2,L0.10,Dag1,9
+Britt,Quantumrekenen,h2,L0.10,Dag1,9
+Carlijn,Quantumrekenen,h2,L0.10,Dag1,9
+Daan,Quantumrekenen,h2,L0.10,Dag1,9
+Femke,Quantumrekenen,h2,L0.10,Dag1,9
+Hannah,Quantumrekenen,h2,L0.10,Dag1,9
+Harm,Quantumrekenen,h2,L0.10,Dag1,9
+Joep,Quantumrekenen,h2,L0.10,Dag1,9
+Kees,Quantumrekenen,h2,L0.10,Dag1,9
+Mees,Quantumrekenen,h2,L0.10,Dag1,9
+Noor,Quantumrekenen,h2,L0.10,Dag1,9
+Puck,Quantumrekenen,h2,L0.10,Dag1,9
+Quinn,Quantumrekenen,h2,L0.10,Dag1,9
+Rens,Quantumrekenen,h2,L0.10,Dag1,9
+Sanne,Quantumrekenen,h2,L0.10,Dag1,9
+Tess,Quantumrekenen,h2,L0.10,Dag1,9
+Teun,Quantumrekenen,h2,L0.10,Dag1,9
+Umut,Quantumrekenen,h2,L0.10,Dag1,9
+Veerle,Quantumrekenen,h2,L0.10,Dag1,9
+Ward,Quantumrekenen,h2,L0.10,Dag1,9
+Wessel,Quantumrekenen,h2,L0.10,Dag1,9
+Xavi,Quantumrekenen,h2,L0.10,Dag1,9
+Zeno,Quantumrekenen,h2,L0.10,Dag1,9
+Amber,Quantumrekenen,w1,L0.09,Dag1,11
+Arjen,Quantumrekenen,w1,L0.09,Dag1,11
+Bas,Quantumrekenen,w1,L0.09,Dag1,11
+Bram,Quantumrekenen,w1,L0.09,Dag1,11
+Britt,Quantumrekenen,w1,L0.09,Dag1,11
+Carlijn,Quantumrekenen,w1,L0.09,Dag1,11
+Daan,Quantumrekenen,w1,L0.09,Dag1,11
+Femke,Quantumrekenen,w1,L0.09,Dag1,11
+Hannah,Quantumrekenen,w1,L0.09,Dag1,11
+Harm,Quantumrekenen,w1,L0.09,Dag1,11
+Joep,Quantumrekenen,w1,L0.09,Dag1,11
+Kees,Quantumrekenen,w1,L0.09,Dag1,11
+Mees,Quantumrekenen,w1,L0.09,Dag1,11
+Noor,Quantumrekenen,w1,L0.10,Dag1,11
+Puck,Quantumrekenen,w1,L0.10,Dag1,11
+Quinn,Quantumrekenen,w1,L0.10,Dag1,11
+Rens,Quantumrekenen,w1,L0.10,Dag1,11
+Sanne,Quantumrekenen,w1,L0.10,Dag1,11
+Tess,Quantumrekenen,w1,L0.10,Dag1,11
+Teun,Quantumrekenen,w1,L0.10,Dag1,11
+Umut,Quantumrekenen,w1,L0.10,Dag1,11
+Veerle,Quantumrekenen,w1,L0.10,Dag1,11
+Ward,Quantumrekenen,w1,L0.10,Dag1,11
+Wessel,Quantumrekenen,w1,L0.10,Dag1,11
+Xavi,Quantumrekenen,w1,L0.10,Dag1,11
+Zeno,Quantumrekenen,w1,L0.10,Dag1,11
+Casper,Statistisch Redeneren,h1,L0.09,Dag1,13
+Coen,Statistisch Redeneren,h1,L0.09,Dag1,13
+Demi,Statistisch Redeneren,h1,L0.09,Dag1,13
+Elin,Statistisch Redeneren,h1,L0.09,Dag1,13
+Emiel,Statistisch Redeneren,h1,L0.09,Dag1,13
+Eva,Statistisch Redeneren,h1,L0.09,Dag1,13
+Fenna,Statistisch Redeneren,h1,L0.09,Dag1,13
+Floris,Statistisch Redeneren,h1,L0.09,Dag1,13
+Gijs,Statistisch Redeneren,h1,L0.09,Dag1,13
+Guusje,Statistisch Redeneren,h1,L0.09,Dag1,13
+Gwen,Statistisch Redeneren,h1,L0.09,Dag1,13
+Hidde,Statistisch Redeneren,h1,L0.09,Dag1,13
+Ilse,Statistisch Redeneren,h1,L0.09,Dag1,13
+Imke,Statistisch Redeneren,h1,L0.09,Dag1,13
+Iris,Statistisch Redeneren,h1,L0.09,Dag1,13
+Jasmijn,Statistisch Redeneren,h1,L0.09,Dag1,13
+Lars,Statistisch Redeneren,h1,L0.09,Dag1,13
+Nout,Statistisch Redeneren,h1,L0.09,Dag1,13
+Odin,Statistisch Redeneren,h1,L0.09,Dag1,13
+Olaf,Statistisch Redeneren,h1,L0.09,Dag1,13
+Pleun,Statistisch Redeneren,h1,L0.09,Dag1,13
+Roos,Statistisch Redeneren,h1,L0.09,Dag1,13
+Sven,Statistisch Redeneren,h1,L0.09,Dag1,13
+Ubbo,Statistisch Redeneren,h1,L0.09,Dag1,13
+Vera,Statistisch Redeneren,h1,L0.09,Dag1,13
+Xena,Statistisch Redeneren,h1,L0.09,Dag1,13
+Yara,Statistisch Redeneren,h1,L0.09,Dag1,13
+Zoe,Statistisch Redeneren,h1,L0.09,Dag1,13
+Casper,Statistisch Redeneren,w1,L0.10,Dag1,13
+Coen,Statistisch Redeneren,w1,L0.10,Dag1,13
+Demi,Statistisch Redeneren,w1,L0.10,Dag1,13
+Elin,Statistisch Redeneren,w1,L0.10,Dag1,13
+Emiel,Statistisch Redeneren,w1,L0.10,Dag1,13
+Eva,Statistisch Redeneren,w1,L0.10,Dag1,13
+Fenna,Statistisch Redeneren,w1,L0.10,Dag1,13
+Floris,Statistisch Redeneren,w1,L0.10,Dag1,13
+Gijs,Statistisch Redeneren,w1,L0.10,Dag1,13
+Guusje,Statistisch Redeneren,w1,L0.10,Dag1,13
+Gwen,Statistisch Redeneren,w1,L0.09,Dag1,15
+Hidde,Statistisch Redeneren,w1,L0.09,Dag1,15
+Ilse,Statistisch Redeneren,w1,L0.09,Dag1,15
+Imke,Statistisch Redeneren,w1,L0.09,Dag1,15
+Iris,Statistisch Redeneren,w1,L0.09,Dag1,15
+Jasmijn,Statistisch Redeneren,w1,L0.09,Dag1,15
+Lars,Statistisch Redeneren,w1,L0.09,Dag1,15
+Nout,Statistisch Redeneren,w1,L0.09,Dag1,15
+Odin,Statistisch Redeneren,w1,L0.09,Dag1,15
+Olaf,Statistisch Redeneren,w1,L0.09,Dag1,15
+Pleun,Statistisch Redeneren,w1,L0.10,Dag1,15
+Roos,Statistisch Redeneren,w1,L0.10,Dag1,15
+Sven,Statistisch Redeneren,w1,L0.10,Dag1,15
+Ubbo,Statistisch Redeneren,w1,L0.10,Dag1,15
+Vera,Statistisch Redeneren,w1,L0.10,Dag1,15
+Xena,Statistisch Redeneren,w1,L0.10,Dag1,15
+Yara,Statistisch Redeneren,w1,L0.10,Dag1,15
+Zoe,Statistisch Redeneren,w1,L0.10,Dag1,15
+Anouk,Cryptografie 2,h1,L0.09,Dag2,9
+Coen,Cryptografie 2,h1,L0.09,Dag2,9
+Dieuwke,Cryptografie 2,h1,L0.09,Dag2,9
+Emiel,Cryptografie 2,h1,L0.09,Dag2,9
+Eva,Cryptografie 2,h1,L0.09,Dag2,9
+Femke,Cryptografie 2,h1,L0.09,Dag2,9
+Gijs,Cryptografie 2,h1,L0.09,Dag2,9
+Ilse,Cryptografie 2,h1,L0.09,Dag2,9
+Koen,Cryptografie 2,h1,L0.09,Dag2,9
+Lotte,Cryptografie 2,h1,L0.09,Dag2,9
+Merel,Cryptografie 2,h1,L0.09,Dag2,9
+Nout,Cryptografie 2,h1,L0.09,Dag2,9
+Odin,Cryptografie 2,h1,L0.09,Dag2,9
+Olaf,Cryptografie 2,h1,L0.09,Dag2,9
+Quinn,Cryptografie 2,h1,L0.09,Dag2,9
+Tess,Cryptografie 2,h1,L0.09,Dag2,9
+Umut,Cryptografie 2,h1,L0.09,Dag2,9
+Xena,Cryptografie 2,h1,L0.09,Dag2,9
+Youri,Cryptografie 2,h1,L0.09,Dag2,9
+Zeno,Cryptografie 2,h1,L0.09,Dag2,9
+Anouk,Cryptografie 2,h2,L0.10,Dag2,9
+Coen,Cryptografie 2,h2,L0.10,Dag2,9
+Dieuwke,Cryptografie 2,h2,L0.10,Dag2,9
+Emiel,Cryptografie 2,h2,L0.10,Dag2,9
+Eva,Cryptografie 2,h2,L0.10,Dag2,9
+Femke,Cryptografie 2,h2,L0.10,Dag2,9
+Gijs,Cryptografie 2,h2,L0.10,Dag2,9
+Ilse,Cryptografie 2,h2,L0.10,Dag2,9
+Koen,Cryptografie 2,h2,L0.10,Dag2,9
+Lotte,Cryptografie 2,h2,L0.10,Dag2,9
+Merel,Cryptografie 2,h2,L0.10,Dag2,9
+Nout,Cryptografie 2,h2,L0.10,Dag2,9
+Odin,Cryptografie 2,h2,L0.10,Dag2,9
+Olaf,Cryptografie 2,h2,L0.10,Dag2,9
+Quinn,Cryptografie 2,h2,L0.10,Dag2,9
+Tess,Cryptografie 2,h2,L0.10,Dag2,9
+Umut,Cryptografie 2,h2,L0.10,Dag2,9
+Xena,Cryptografie 2,h2,L0.10,Dag2,9
+Youri,Cryptografie 2,h2,L0.10,Dag2,9
+Zeno,Cryptografie 2,h2,L0.10,Dag2,9
+Anouk,Cryptografie 2,w1,L0.09,Dag2,11
+Coen,Cryptografie 2,w1,L0.09,Dag2,11
+Dieuwke,Cryptografie 2,w1,L0.09,Dag2,11
+Emiel,Cryptografie 2,w1,L0.09,Dag2,11
+Eva,Cryptografie 2,w1,L0.09,Dag2,11
+Femke,Cryptografie 2,w1,L0.09,Dag2,11
+Gijs,Cryptografie 2,w1,L0.09,Dag2,11
+Ilse,Cryptografie 2,w1,L0.09,Dag2,11
+Koen,Cryptografie 2,w1,L0.09,Dag2,11
+Lotte,Cryptografie 2,w1,L0.09,Dag2,11
+Merel,Cryptografie 2,w1,L0.10,Dag2,11
+Nout,Cryptografie 2,w1,L0.10,Dag2,11
+Odin,Cryptografie 2,w1,L0.10,Dag2,11
+Olaf,Cryptografie 2,w1,L0.10,Dag2,11
+Quinn,Cryptografie 2,w1,L0.10,Dag2,11
+Tess,Cryptografie 2,w1,L0.10,Dag2,11
+Umut,Cryptografie 2,w1,L0.10,Dag2,11
+Xena,Cryptografie 2,w1,L0.10,Dag2,11
+Youri,Cryptografie 2,w1,L0.10,Dag2,11
+Zeno,Cryptografie 2,w1,L0.10,Dag2,11
+Amber,Datastructuren,h1,L0.09,Dag2,13
+Arjen,Datastructuren,h1,L0.09,Dag2,13
+Bas,Datastructuren,h1,L0.09,Dag2,13
+Britt,Datastructuren,h1,L0.09,Dag2,13
+Daan,Datastructuren,h1,L0.09,Dag2,13
+Dieuwke,Datastructuren,h1,L0.09,Dag2,13
+Elin,Datastructuren,h1,L0.09,Dag2,13
+Floris,Datastructuren,h1,L0.09,Dag2,13
+Guusje,Datastructuren,h1,L0.09,Dag2,13
+Gwen,Datastructuren,h1,L0.09,Dag2,13
+Hannah,Datastructuren,h1,L0.09,Dag2,13
+Harm,Datastructuren,h1,L0.09,Dag2,13
+Hidde,Datastructuren,h1,L0.09,Dag2,13
+Iris,Datastructuren,h1,L0.09,Dag2,13
+Joep,Datastructuren,h1,L0.09,Dag2,13
+Kees,Datastructuren,h1,L0.09,Dag2,13
+Koen,Datastructuren,h1,L0.09,Dag2,13
+Lotte,Datastructuren,h1,L0.09,Dag2,13
+Mees,Datastructuren,h1,L0.09,Dag2,13
+Merel,Datastructuren,h1,L0.09,Dag2,13
+Puck,Datastructuren,h1,L0.09,Dag2,13
+Rens,Datastructuren,h1,L0.09,Dag2,13
+Roos,Datastructuren,h1,L0.09,Dag2,13
+Teun,Datastructuren,h1,L0.09,Dag2,13
+Veerle,Datastructuren,h1,L0.09,Dag2,13
+Xavi,Datastructuren,h1,L0.09,Dag2,13
+Yara,Datastructuren,h1,L0.09,Dag2,13
+Zoe,Datastructuren,h1,L0.09,Dag2,13
+Amber,Datastructuren,h2,L0.10,Dag2,13
+Arjen,Datastructuren,h2,L0.10,Dag2,13
+Bas,Datastructuren,h2,L0.10,Dag2,13
+Britt,Datastructuren,h2,L0.10,Dag2,13
+Daan,Datastructuren,h2,L0.10,Dag2,13
+Dieuwke,Datastructuren,h2,L0.10,Dag2,13
+Elin,Datastructuren,h2,L0.10,Dag2,13
+Floris,Datastructuren,h2,L0.10,Dag2,13
+Guusje,Datastructuren,h2,L0.10,Dag2,13
+Gwen,Datastructuren,h2,L0.10,Dag2,13
+Hannah,Datastructuren,h2,L0.10,Dag2,13
+Harm,Datastructuren,h2,L0.10,Dag2,13
+Hidde,Datastructuren,h2,L0.10,Dag2,13
+Iris,Datastructuren,h2,L0.10,Dag2,13
+Joep,Datastructuren,h2,L0.10,Dag2,13
+Kees,Datastructuren,h2,L0.10,Dag2,13
+Koen,Datastructuren,h2,L0.10,Dag2,13
+Lotte,Datastructuren,h2,L0.10,Dag2,13
+Mees,Datastructuren,h2,L0.10,Dag2,13
+Merel,Datastructuren,h2,L0.10,Dag2,13
+Puck,Datastructuren,h2,L0.10,Dag2,13
+Rens,Datastructuren,h2,L0.10,Dag2,13
+Roos,Datastructuren,h2,L0.10,Dag2,13
+Teun,Datastructuren,h2,L0.10,Dag2,13
+Veerle,Datastructuren,h2,L0.10,Dag2,13
+Xavi,Datastructuren,h2,L0.10,Dag2,13
+Yara,Datastructuren,h2,L0.10,Dag2,13
+Zoe,Datastructuren,h2,L0.10,Dag2,13
+Amber,Datastructuren,w1,L0.09,Dag2,15
+Arjen,Datastructuren,w1,L0.09,Dag2,15
+Bas,Datastructuren,w1,L0.09,Dag2,15
+Britt,Datastructuren,w1,L0.09,Dag2,15
+Daan,Datastructuren,w1,L0.09,Dag2,15
+Dieuwke,Datastructuren,w1,L0.09,Dag2,15
+Elin,Datastructuren,w1,L0.09,Dag2,15
+Floris,Datastructuren,w1,L0.09,Dag2,15
+Guusje,Datastructuren,w1,L0.09,Dag2,15
+Gwen,Datastructuren,w1,L0.09,Dag2,15
+Hannah,Datastructuren,w1,L0.09,Dag2,15
+Harm,Datastructuren,w1,L0.09,Dag2,15
+Hidde,Datastructuren,w1,L0.09,Dag2,15
+Iris,Datastructuren,w1,L0.09,Dag2,15
+Joep,Datastructuren,w1,L0.10,Dag2,15
+Kees,Datastructuren,w1,L0.10,Dag2,15
+Koen,Datastructuren,w1,L0.10,Dag2,15
+Lotte,Datastructuren,w1,L0.10,Dag2,15
+Mees,Datastructuren,w1,L0.10,Dag2,15
+Merel,Datastructuren,w1,L0.10,Dag2,15
+Puck,Datastructuren,w1,L0.10,Dag2,15
+Rens,Datastructuren,w1,L0.10,Dag2,15
+Roos,Datastructuren,w1,L0.10,Dag2,15
+Teun,Datastructuren,w1,L0.10,Dag2,15
+Veerle,Datastructuren,w1,L0.10,Dag2,15
+Xavi,Datastructuren,w1,L0.10,Dag2,15
+Yara,Datastructuren,w1,L0.10,Dag2,15
+Zoe,Datastructuren,w1,L0.10,Dag2,15
+Anouk,Practicum Lab 42,p1,L0.09,Dag3,9
+Bram,Practicum Lab 42,p1,L0.09,Dag3,9
+Carlijn,Practicum Lab 42,p1,L0.09,Dag3,9
+Casper,Practicum Lab 42,p1,L0.09,Dag3,9
+Demi,Practicum Lab 42,p1,L0.09,Dag3,9
+Fenna,Practicum Lab 42,p1,L0.09,Dag3,9
+Gwen,Practicum Lab 42,p1,L0.10,Dag3,9
+Imke,Practicum Lab 42,p1,L0.10,Dag3,9
+Jasmijn,Practicum Lab 42,p1,L0.10,Dag3,9
+Lars,Practicum Lab 42,p1,L0.10,Dag3,9
+Noor,Practicum Lab 42,p1,L0.10,Dag3,9
+Pleun,Practicum Lab 42,p1,L0.10,Dag3,9
+Sanne,Practicum Lab 42,p1,L0.09,Dag3,11
+Sven,Practicum Lab 42,p1,L0.09,Dag3,11
+Ubbo,Practicum Lab 42,p1,L0.09,Dag3,11
+Vera,Practicum Lab 42,p1,L0.09,Dag3,11
+Ward,Practicum Lab 42,p1,L0.09,Dag3,11
+Wessel,Practicum Lab 42,p1,L0.09,Dag3,11
+Youri,Practicum Lab 42,p1,L0.10,Dag3,11
+Zoe,Practicum Lab 42,p1,L0.10,Dag3,11
+Amber,Robotica,h1,L0.09,Dag3,13
+Casper,Robotica,h1,L0.09,Dag3,13
+Emiel,Robotica,h1,L0.09,Dag3,13
+Eva,Robotica,h1,L0.09,Dag3,13
+Fenna,Robotica,h1,L0.09,Dag3,13
+Floris,Robotica,h1,L0.09,Dag3,13
+Gijs,Robotica,h1,L0.09,Dag3,13
+Harm,Robotica,h1,L0.09,Dag3,13
+Hidde,Robotica,h1,L0.09,Dag3,13
+Imke,Robotica,h1,L0.09,Dag3,13
+Koen,Robotica,h1,L0.09,Dag3,13
+Lotte,Robotica,h1,L0.09,Dag3,13
+Mees,Robotica,h1,L0.09,Dag3,13
+Noor,Robotica,h1,L0.09,Dag3,13
+Nout,Robotica,h1,L0.09,Dag3,13
+Puck,Robotica,h1,L0.09,Dag3,13
+Quinn,Robotica,h1,L0.09,Dag3,13
+Rens,Robotica,h1,L0.09,Dag3,13
+Sanne,Robotica,h1,L0.09,Dag3,13
+Sven,Robotica,h1,L0.09,Dag3,13
+Teun,Robotica,h1,L0.09,Dag3,13
+Ward,Robotica,h1,L0.09,Dag3,13
+Yara,Robotica,h1,L0.09,Dag3,13
+Youri,Robotica,h1,L0.09,Dag3,13
+Amber,Robotica,w1,L0.10,Dag3,13
+Casper,Robotica,w1,L0.10,Dag3,13
+Emiel,Robotica,w1,L0.10,Dag3,13
+Eva,Robotica,w1,L0.10,Dag3,13
+Fenna,Robotica,w1,L0.10,Dag3,13
+Floris,Robotica,w1,L0.10,Dag3,13
+Gijs,Robotica,w1,L0.10,Dag3,13
+Harm,Robotica,w1,L0.10,Dag3,13
+Hidde,Robotica,w1,L0.10,Dag3,13
+Imke,Robotica,w1,L0.10,Dag3,13
+Koen,Robotica,w1,L0.10,Dag3,13
+Lotte,Robotica,w1,L0.10,Dag3,13
+Mees,Robotica,w1,L0.09,Dag3,15
+Noor,Robotica,w1,L0.09,Dag3,15
+Nout,Robotica,w1,L0.09,Dag3,15
+Puck,Robotica,w1,L0.09,Dag3,15
+Quinn,Robotica,w1,L0.09,Dag3,15
+Rens,Robotica,w1,L0.09,Dag3,15
+Sanne,Robotica,w1,L0.09,Dag3,15
+Sven,Robotica,w1,L0.09,Dag3,15
+Teun,Robotica,w1,L0.09,Dag3,15
+Ward,Robotica,w1,L0.09,Dag3,15
+Yara,Robotica,w1,L0.09,Dag3,15
+Youri,Robotica,w1,L0.09,Dag3,15
+Amber,Robotica,p1,L0.10,Dag3,15
+Casper,Robotica,p1,L0.10,Dag3,15
+Emiel,Robotica,p1,L0.10,Dag3,15
+Eva,Robotica,p1,L0.10,Dag3,15
+Fenna,Robotica,p1,L0.10,Dag3,15
+Floris,Robotica,p1,L0.10,Dag3,15
+Gijs,Robotica,p1,L0.10,Dag3,15
+Harm,Robotica,p1,L0.10,Dag3,15
+Hidde,Robotica,p1,L0.10,Dag3,15
+Imke,Robotica,p1,L0.10,Dag3,15
+Koen,Robotica,p1,L0.10,Dag3,15
+Lotte,Robotica,p1,L0.10,Dag3,15
+Mees,Robotica,p1,L0.09,Dag4,9
+Noor,Robotica,p1,L0.09,Dag4,9
+Nout,Robotica,p1,L0.09,Dag4,9
+Puck,Robotica,p1,L0.09,Dag4,9
+Quinn,Robotica,p1,L0.09,Dag4,9
+Rens,Robotica,p1,L0.09,Dag4,9
+Sanne,Robotica,p1,L0.09,Dag4,9
+Sven,Robotica,p1,L0.09,Dag4,9
+Teun,Robotica,p1,L0.09,Dag4,9
+Ward,Robotica,p1,L0.09,Dag4,9
+Yara,Robotica,p1,L0.09,Dag4,9
+Youri,Robotica,p1,L0.09,Dag4,9
+Anouk,Neurale Netwerken,h1,L0.10,Dag4,9
+Arjen,Neurale Netwerken,h1,L0.10,Dag4,9
+Bas,Neurale Netwerken,h1,L0.10,Dag4,9
+Bram,Neurale Netwerken,h1,L0.10,Dag4,9
+Britt,Neurale Netwerken,h1,L0.10,Dag4,9
+Carlijn,Neurale Netwerken,h1,L0.10,Dag4,9
+Daan,Neurale Netwerken,h1,L0.10,Dag4,9
+Demi,Neurale Netwerken,h1,L0.10,Dag4,9
+Dieuwke,Neurale Netwerken,h1,L0.10,Dag4,9
+Femke,Neurale Netwerken,h1,L0.10,Dag4,9
+Guusje,Neurale Netwerken,h1,L0.10,Dag4,9
+Hannah,Neurale Netwerken,h1,L0.10,Dag4,9
+Ilse,Neurale Netwerken,h1,L0.10,Dag4,9
+Iris,Neurale Netwerken,h1,L0.10,Dag4,9
+Jasmijn,Neurale Netwerken,h1,L0.10,Dag4,9
+Kees,Neurale Netwerken,h1,L0.10,Dag4,9
+Lars,Neurale Netwerken,h1,L0.10,Dag4,9
+Merel,Neurale Netwerken,h1,L0.10,Dag4,9
+Odin,Neurale Netwerken,h1,L0.10,Dag4,9
+Olaf,Neurale Netwerken,h1,L0.10,Dag4,9
+Pleun,Neurale Netwerken,h1,L0.10,Dag4,9
+Roos,Neurale Netwerken,h1,L0.10,Dag4,9
+Ubbo,Neurale Netwerken,h1,L0.10,Dag4,9
+Umut,Neurale Netwerken,h1,L0.10,Dag4,9
+Veerle,Neurale Netwerken,h1,L0.10,Dag4,9
+Vera,Neurale Netwerken,h1,L0.10,Dag4,9
+Wessel,Neurale Netwerken,h1,L0.10,Dag4,9
+Xavi,Neurale Netwerken,h1,L0.10,Dag4,9
+Xena,Neurale Netwerken,h1,L0.10,Dag4,9
+Zeno,Neurale Netwerken,h1,L0.10,Dag4,9
+Anouk,Neurale Netwerken,w1,L0.09,Dag4,11
+Arjen,Neurale Netwerken,w1,L0.09,Dag4,11
+Bas,Neurale Netwerken,w1,L0.09,Dag4,11
+Bram,Neurale Netwerken,w1,L0.09,Dag4,11
+Britt,Neurale Netwerken,w1,L0.09,Dag4,11
+Carlijn,Neurale Netwerken,w1,L0.09,Dag4,11
+Daan,Neurale Netwerken,w1,L0.09,Dag4,11
+Demi,Neurale Netwerken,w1,L0.09,Dag4,11
+Dieuwke,Neurale Netwerken,w1,L0.09,Dag4,11
+Femke,Neurale Netwerken,w1,L0.09,Dag4,11
+Guusje,Neurale Netwerken,w1,L0.09,Dag4,11
+Hannah,Neurale Netwerken,w1,L0.09,Dag4,11
+Ilse,Neurale Netwerken,w1,L0.09,Dag4,11
+Iris,Neurale Netwerken,w1,L0.09,Dag4,11
+Jasmijn,Neurale Netwerken,w1,L0.09,Dag4,11
+Kees,Neurale Netwerken,w1,L0.10,Dag4,11
+Lars,Neurale Netwerken,w1,L0.10,Dag4,11
+Merel,Neurale Netwerken,w1,L0.10,Dag4,11
+Odin,Neurale Netwerken,w1,L0.10,Dag4,11
+Olaf,Neurale Netwerken,w1,L0.10,Dag4,11
+Pleun,Neurale Netwerken,w1,L0.10,Dag4,11
+Roos,Neurale Netwerken,w1,L0.10,Dag4,11
+Ubbo,Neurale Netwerken,w1,L0.10,Dag4,11
+Umut,Neurale Netwerken,w1,L0.10,Dag4,11
+Veerle,Neurale Netwerken,w1,L0.10,Dag4,11
+Vera,Neurale Netwerken,w1,L0.10,Dag4,11
+Wessel,Neurale Netwerken,w1,L0.10,Dag4,11
+Xavi,Neurale Netwerken,w1,L0.10,Dag4,11
+Xena,Neurale Netwerken,w1,L0.10,Dag4,11
+Zeno,Neurale Netwerken,w1,L0.10,Dag4,11
+Anouk,Neurale Netwerken,w2,L0.09,Dag4,13
+Arjen,Neurale Netwerken,w2,L0.09,Dag4,13
+Bas,Neurale Netwerken,w2,L0.09,Dag4,13
+Bram,Neurale Netwerken,w2,L0.09,Dag4,13
+Britt,Neurale Netwerken,w2,L0.09,Dag4,13
+Carlijn,Neurale Netwerken,w2,L0.09,Dag4,13
+Daan,Neurale Netwerken,w2,L0.09,Dag4,13
+Demi,Neurale Netwerken,w2,L0.09,Dag4,13
+Dieuwke,Neurale Netwerken,w2,L0.09,Dag4,13
+Femke,Neurale Netwerken,w2,L0.09,Dag4,13
+Guusje,Neurale Netwerken,w2,L0.09,Dag4,13
+Hannah,Neurale Netwerken,w2,L0.09,Dag4,13
+Ilse,Neurale Netwerken,w2,L0.09,Dag4,13
+Iris,Neurale Netwerken,w2,L0.09,Dag4,13
+Jasmijn,Neurale Netwerken,w2,L0.09,Dag4,13
+Kees,Neurale Netwerken,w2,L0.10,Dag4,13
+Lars,Neurale Netwerken,w2,L0.10,Dag4,13
+Merel,Neurale Netwerken,w2,L0.10,Dag4,13
+Odin,Neurale Netwerken,w2,L0.10,Dag4,13
+Olaf,Neurale Netwerken,w2,L0.10,Dag4,13
+Pleun,Neurale Netwerken,w2,L0.10,Dag4,13
+Roos,Neurale Netwerken,w2,L0.10,Dag4,13
+Ubbo,Neurale Netwerken,w2,L0.10,Dag4,13
+Umut,Neurale Netwerken,w2,L0.10,Dag4,13
+Veerle,Neurale Netwerken,w2,L0.10,Dag4,13
+Vera,Neurale Netwerken,w2,L0.10,Dag4,13
+Wessel,Neurale Netwerken,w2,L0.10,Dag4,13
+Xavi,Neurale Netwerken,w2,L0.10,Dag4,13
+Xena,Neurale Netwerken,w2,L0.10,Dag4,13
+Zeno,Neurale Netwerken,w2,L0.10,Dag4,13
+Carlijn,Complexiteitstheorie,h1,L0.09,Dag4,15
+Casper,Complexiteitstheorie,h1,L0.09,Dag4,15
+Coen,Complexiteitstheorie,h1,L0.09,Dag4,15
+Elin,Complexiteitstheorie,h1,L0.09,Dag4,15
+Floris,Complexiteitstheorie,h1,L0.09,Dag4,15
+Hannah,Complexiteitstheorie,h1,L0.09,Dag4,15
+Hidde,Complexiteitstheorie,h1,L0.09,Dag4,15
+Ilse,Complexiteitstheorie,h1,L0.09,Dag4,15
+Joep,Complexiteitstheorie,h1,L0.09,Dag4,15
+Kees,Complexiteitstheorie,h1,L0.09,Dag4,15
+Mees,Complexiteitstheorie,h1,L0.09,Dag4,15
+Nout,Complexiteitstheorie,h1,L0.09,Dag4,15
+Odin,Complexiteitstheorie,h1,L0.09,Dag4,15
+Pleun,Complexiteitstheorie,h1,L0.09,Dag4,15
+Puck,Complexiteitstheorie,h1,L0.09,Dag4,15
+Quinn,Complexiteitstheorie,h1,L0.09,Dag4,15
+Rens,Complexiteitstheorie,h1,L0.09,Dag4,15
+Sanne,Complexiteitstheorie,h1,L0.09,Dag4,15
+Tess,Complexiteitstheorie,h1,L0.09,Dag4,15
+Umut,Complexiteitstheorie,h1,L0.09,Dag4,15
+Veerle,Complexiteitstheorie,h1,L0.09,Dag4,15
+Youri,Complexiteitstheorie,h1,L0.09,Dag4,15
+Carlijn,Complexiteitstheorie,h2,L0.10,Dag4,15
+Casper,Complexiteitstheorie,h2,L0.10,Dag4,15
+Coen,Complexiteitstheorie,h2,L0.10,Dag4,15
+Elin,Complexiteitstheorie,h2,L0.10,Dag4,15
+Floris,Complexiteitstheorie,h2,L0.10,Dag4,15
+Hannah,Complexiteitstheorie,h2,L0.10,Dag4,15
+Hidde,Complexiteitstheorie,h2,L0.10,Dag4,15
+Ilse,Complexiteitstheorie,h2,L0.10,Dag4,15
+Joep,Complexiteitstheorie,h2,L0.10,Dag4,15
+Kees,Complexiteitstheorie,h2,L0.10,Dag4,15
+Mees,Complexiteitstheorie,h2,L0.10,Dag4,15
+Nout,Complexiteitstheorie,h2,L0.10,Dag4,15
+Odin,Complexiteitstheorie,h2,L0.10,Dag4,15
+Pleun,Complexiteitstheorie,h2,L0.10,Dag4,15
+Puck,Complexiteitstheorie,h2,L0.10,Dag4,15
+Quinn,Complexiteitstheorie,h2,L0.10,Dag4,15
+Rens,Complexiteitstheorie,h2,L0.10,Dag4,15
+Sanne,Complexiteitstheorie,h2,L0.10,Dag4,15
+Tess,Complexiteitstheorie,h2,L0.10,Dag4,15
+Umut,Complexiteitstheorie,h2,L0.10,Dag4,15
+Veerle,Complexiteitstheorie,h2,L0.10,Dag4,15
+Youri,Complexiteitstheorie,h2,L0.10,Dag4,15
+Carlijn,Complexiteitstheorie,w1,L0.09,Dag5,9
+Casper,Complexiteitstheorie,w1,L0.09,Dag5,9
+Coen,Complexiteitstheorie,w1,L0.09,Dag5,9
+Elin,Complexiteitstheorie,w1,L0.09,Dag5,9
+Floris,Complexiteitstheorie,w1,L0.09,Dag5,9
+Hannah,Complexiteitstheorie,w1,L0.09,Dag5,9
+Hidde,Complexiteitstheorie,w1,L0.09,Dag5,9
+Ilse,Complexiteitstheorie,w1,L0.09,Dag5,9
+Joep,Complexiteitstheorie,w1,L0.09,Dag5,9
+Kees,Complexiteitstheorie,w1,L0.09,Dag5,9
+Mees,Complexiteitstheorie,w1,L0.09,Dag5,9
+Nout,Complexiteitstheorie,w1,L0.10,Dag5,9
+Odin,Complexiteitstheorie,w1,L0.10,Dag5,9
+Pleun,Complexiteitstheorie,w1,L0.10,Dag5,9
+Puck,Complexiteitstheorie,w1,L0.10,Dag5,9
+Quinn,Complexiteitstheorie,w1,L0.10,Dag5,9
+Rens,Complexiteitstheorie,w1,L0.10,Dag5,9
+Sanne,Complexiteitstheorie,w1,L0.10,Dag5,9
+Tess,Complexiteitstheorie,w1,L0.10,Dag5,9
+Umut,Complexiteitstheorie,w1,L0.10,Dag5,9
+Veerle,Complexiteitstheorie,w1,L0.10,Dag5,9
+Youri,Complexiteitstheorie,w1,L0.10,Dag5,9
+Amber,Wetenschapsfilosofie,h1,L0.09,Dag5,11
+Anouk,Wetenschapsfilosofie,h1,L0.09,Dag5,11
+Bram,Wetenschapsfilosofie,h1,L0.09,Dag5,11
+Coen,Wetenschapsfilosofie,h1,L0.09,Dag5,11
+Demi,Wetenschapsfilosofie,h1,L0.09,Dag5,11
+Elin,Wetenschapsfilosofie,h1,L0.09,Dag5,11
+Femke,Wetenschapsfilosofie,h1,L0.09,Dag5,11
+Fenna,Wetenschapsfilosofie,h1,L0.09,Dag5,11
+Gijs,Wetenschapsfilosofie,h1,L0.09,Dag5,11
+Imke,Wetenschapsfilosofie,h1,L0.09,Dag5,11
+Koen,Wetenschapsfilosofie,h1,L0.09,Dag5,11
+Lars,Wetenschapsfilosofie,h1,L0.09,Dag5,11
+Lotte,Wetenschapsfilosofie,h1,L0.09,Dag5,11
+Merel,Wetenschapsfilosofie,h1,L0.09,Dag5,11
+Noor,Wetenschapsfilosofie,h1,L0.09,Dag5,11
+Olaf,Wetenschapsfilosofie,h1,L0.09,Dag5,11
+Roos,Wetenschapsfilosofie,h1,L0.09,Dag5,11
+Tess,Wetenschapsfilosofie,h1,L0.09,Dag5,11
+Vera,Wetenschapsfilosofie,h1,L0.09,Dag5,11
+Ward,Wetenschapsfilosofie,h1,L0.09,Dag5,11
+Wessel,Wetenschapsfilosofie,h1,L0.09,Dag5,11
+Xena,Wetenschapsfilosofie,h1,L0.09,Dag5,11
+Yara,Wetenschapsfilosofie,h1,L0.09,Dag5,11
+Zoe,Wetenschapsfilosofie,h1,L0.09,Dag5,11
+Amber,Wetenschapsfilosofie,w1,L0.10,Dag5,11
+Anouk,Wetenschapsfilosofie,w1,L0.10,Dag5,11
+Bram,Wetenschapsfilosofie,w1,L0.10,Dag5,11
+Coen,Wetenschapsfilosofie,w1,L0.10,Dag5,11
+Demi,Wetenschapsfilosofie,w1,L0.10,Dag5,11
+Elin,Wetenschapsfilosofie,w1,L0.10,Dag5,11
+Femke,Wetenschapsfilosofie,w1,L0.10,Dag5,11
+Fenna,Wetenschapsfilosofie,w1,L0.10,Dag5,11
+Gijs,Wetenschapsfilosofie,w1,L0.10,Dag5,11
+Imke,Wetenschapsfilosofie,w1,L0.10,Dag5,11
+Koen,Wetenschapsfilosofie,w1,L0.10,Dag5,11
+Lars,Wetenschapsfilosofie,w1,L0.10,Dag5,11
+Lotte,Wetenschapsfilosofie,w1,L0.09,Dag5,13
+Merel,Wetenschapsfilosofie,w1,L0.09,Dag5,13
+Noor,Wetenschapsfilosofie,w1,L0.09,Dag5,13
+Olaf,Wetenschapsfilosofie,w1,L0.09,Dag5,13
+Roos,Wetenschapsfilosofie,w1,L0.09,Dag5,13
+Tess,Wetenschapsfilosofie,w1,L0.09,Dag5,13
+Vera,Wetenschapsfilosofie,w1,L0.09,Dag5,13
+Ward,Wetenschapsfilosofie,w1,L0.09,Dag5,13
+Wessel,Wetenschapsfilosofie,w1,L0.09,Dag5,13
+Xena,Wetenschapsfilosofie,w1,L0.09,Dag5,13
+Yara,Wetenschapsfilosofie,w1,L0.09,Dag5,13
+Zoe,Wetenschapsfilosofie,w1,L0.09,Dag5,13
+Arjen,Ethiek van AI,h1,L0.10,Dag5,13
+Bas,Ethiek van AI,h1,L0.10,Dag5,13
+Britt,Ethiek van AI,h1,L0.10,Dag5,13
+Daan,Ethiek van AI,h1,L0.10,Dag5,13
+Dieuwke,Ethiek van AI,h1,L0.10,Dag5,13
+Emiel,Ethiek van AI,h1,L0.10,Dag5,13
+Eva,Ethiek van AI,h1,L0.10,Dag5,13
+Guusje,Ethiek van AI,h1,L0.10,Dag5,13
+Gwen,Ethiek van AI,h1,L0.10,Dag5,13
+Harm,Ethiek van AI,h1,L0.10,Dag5,13
+Iris,Ethiek van AI,h1,L0.10,Dag5,13
+Jasmijn,Ethiek van AI,h1,L0.10,Dag5,13
+Joep,Ethiek van AI,h1,L0.10,Dag5,13
+Sven,Ethiek van AI,h1,L0.10,Dag5,13
+Teun,Ethiek van AI,h1,L0.10,Dag5,13
+Ubbo,Ethiek van AI,h1,L0.10,Dag5,13
+Xavi,Ethiek van AI,h1,L0.10,Dag5,13
+Zeno,Ethiek van AI,h1,L0.10,Dag5,13
+Arjen,Ethiek van AI,w1,L0.09,Dag5,15
+Bas,Ethiek van AI,w1,L0.09,Dag5,15
+Britt,Ethiek van AI,w1,L0.09,Dag5,15
+Daan,Ethiek van AI,w1,L0.09,Dag5,15
+Dieuwke,Ethiek van AI,w1,L0.09,Dag5,15
+Emiel,Ethiek van AI,w1,L0.09,Dag5,15
+Eva,Ethiek van AI,w1,L0.09,Dag5,15
+Guusje,Ethiek van AI,w1,L0.09,Dag5,15
+Gwen,Ethiek van AI,w1,L0.09,Dag5,15
+Harm,Ethiek van AI,w1,L0.10,Dag5,15
+Iris,Ethiek van AI,w1,L0.10,Dag5,15
+Jasmijn,Ethiek van AI,w1,L0.10,Dag5,15
+Joep,Ethiek van AI,w1,L0.10,Dag5,15
+Sven,Ethiek van AI,w1,L0.10,Dag5,15
+Teun,Ethiek van AI,w1,L0.10,Dag5,15
+Ubbo,Ethiek van AI,w1,L0.10,Dag5,15
+Xavi,Ethiek van AI,w1,L0.10,Dag5,15
+Zeno,Ethiek van AI,w1,L0.10,Dag5,15
